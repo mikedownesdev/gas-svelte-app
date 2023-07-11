@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Clasp config
+**/.clasp.json
+
+# Environment variables
+.env
