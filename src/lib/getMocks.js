@@ -11,11 +11,15 @@ export default function getMocks(resolve) {
           firstName: 'John',
           lastName: 'Mock'
         }
-        resolve(JSON.stringify(mockResponse));
+        resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
-    saveUserPreferences() {
-      resolve('Saved preferences ' + Array.from(arguments).toString());
+    async setUserPreferences(preferencesObject) {
+      console.log('going to sleep')
+      await sleep(2000)
+      console.log('Saved preferences ' + Array.from(arguments).toString());
+      let mockResponse = preferencesObject;
+      // console.log('Saved preferences ' + Array.from(arguments).toString());
+      resolve(JSON.parse(JSON.stringify(mockResponse)));
     }
   };
 }
- 
