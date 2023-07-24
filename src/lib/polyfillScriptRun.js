@@ -1,4 +1,4 @@
-import getMocks from './getMocks';
+import getMocks from './mocks/getMocks';
 let polyfilled = false;
 export default async function polyfillScriptRun() {
   if (polyfilled) return;
