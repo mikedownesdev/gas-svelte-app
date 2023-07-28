@@ -1,6 +1,6 @@
-
 /**
- * 
+ * @param {string} viewId
+ * @returns {ViewConfiguration | undefined}
  */
 function getViewConfiguration(viewId) {
     console.log("getting view configuration for viewId:", viewId);
@@ -10,7 +10,12 @@ function getViewConfiguration(viewId) {
     const scriptPropertiesService = PropertiesService.getScriptProperties();
     const scriptProperties = scriptPropertiesService.getProperties();
     const appConfigurationString = scriptProperties.appConfiguration;
-    const appConfigurationObject = appConfigurationString ? JSON.parse(appConfigurationString) : { views: [], dataSources: []};
-    const viewConfiguration = appConfigurationObject.views.find((config) => config.id === viewId);
+
+    if (!appConfigurationString) { throw new Error('App configuration not found'); }
+
+    /** @type {AppConfiguration} */
+    const appConfigurationObject = JSON.parse(appConfigurationString);
+
+    const viewConfiguration = appConfigurationObject.viewConfigurations.find((config) => config.id === viewId);
     return viewConfiguration;
   }

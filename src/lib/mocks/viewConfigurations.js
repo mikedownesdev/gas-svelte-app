@@ -1,3 +1,7 @@
+/**
+ * Mock data for view configurations
+ * @type {ViewConfiguration[]}}
+ */
 export const viewConfigurations = [
     {
         id: '1',

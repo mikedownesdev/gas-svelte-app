@@ -42,12 +42,30 @@ export default function getMocks(resolve) {
       resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
 
+    /*========* View Configuration API *========*/
+
     getViewConfiguration(viewId) {
       console.log("getting view configuration for viewId:", viewId);
-      console.log(viewConfigurations)
       let mockResponse = viewConfigurations.find((config) => config.id === viewId);
       return JSON.parse(JSON.stringify(mockResponse));
     },
+
+    async postViewConfiguration(viewConfiguration) {
+      console.log("posting view configuration:", viewConfiguration);
+      await sleep(2000);
+      let mockResponse = viewConfiguration;
+      return JSON.parse(JSON.stringify(mockResponse));
+    },
+
+    putViewConfiguration(viewConfiguration) {
+      return true;
+    },
+
+    deleteViewConfiguration(viewId) {
+      return true;
+    },
+
+    /*========* View Data API *========*/
 
     async getViewData(viewId) {
       console.log("getting view data for viewId:", viewId);

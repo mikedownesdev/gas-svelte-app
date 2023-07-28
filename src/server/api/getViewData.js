@@ -1,3 +1,7 @@
+/**
+ * @param {string} viewId
+ * @returns {View}
+ */
 function getViewData(viewId) {
     
     const viewConfiguration = getViewConfiguration(viewId);
@@ -6,7 +10,7 @@ function getViewData(viewId) {
         throw new Error("View configuration not found");
     }
 
-    console.log("getting view data for config:", viewConfiguration);
+    console.log("Found config, reading dataSource and applying view schema:", viewConfiguration);
     const resultSet = query(viewConfiguration);
 
     let mockResponse = {
