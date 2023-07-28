@@ -3,15 +3,14 @@
  * @returns {UserPreferences}
  */
 function setUserPreferences(preferencesObject) {
+  const userPropertiesService = PropertiesService.getUserProperties();
+  const updatedPreferencesString = JSON.stringify(preferencesObject);
 
-    const userPropertiesService = PropertiesService.getUserProperties();
-    const updatedPreferencesString = JSON.stringify(preferencesObject)
-    
-    userPropertiesService.setProperties({
-        preferences: updatedPreferencesString
-    })
+  userPropertiesService.setProperties({
+    preferences: updatedPreferencesString,
+  });
 
-    const result = getUserPreferences();
-    
-    return result
+  const result = getUserPreferences();
+
+  return result;
 }

@@ -1,4 +1,4 @@
-import polyfillScriptRun from './polyfillScriptRun';
+import polyfillScriptRun from "./polyfillScriptRun";
 polyfillScriptRun();
 
 export default async function runGas(functionName, args = []) {

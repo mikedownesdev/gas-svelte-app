@@ -1,1 +1,1 @@
-export default () => typeof globalThis.it === 'function';
+export default () => typeof globalThis.it === "function";

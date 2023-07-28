@@ -6,7 +6,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, isJest() ? 0 : ms));
 }
 
-
 const query = (viewConfiguration) => {
   const { spreadsheetId, gid } = viewConfiguration.dataSource;
   const { fields } = viewConfiguration;
@@ -18,9 +17,7 @@ const query = (viewConfiguration) => {
     }, {});
   });
   return data;
-}
-
-
+};
 
 export default function getMocks(resolve) {
   return {
@@ -46,7 +43,9 @@ export default function getMocks(resolve) {
 
     getViewConfiguration(viewId) {
       console.log("getting view configuration for viewId:", viewId);
-      let mockResponse = viewConfigurations.find((config) => config.id === viewId);
+      let mockResponse = viewConfigurations.find(
+        (config) => config.id === viewId
+      );
       return JSON.parse(JSON.stringify(mockResponse));
     },
 
@@ -83,7 +82,7 @@ export default function getMocks(resolve) {
         source: "mocks",
         configuration: viewConfiguration,
         data: {
-          records: resultSet          
+          records: resultSet,
         },
       };
 
