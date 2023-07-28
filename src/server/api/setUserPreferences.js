@@ -1,11 +1,8 @@
 /**
- * 
+ * @param {UserPreferences} preferencesObject
+ * @returns {UserPreferences}
  */
 function setUserPreferences(preferencesObject) {
-    
-    if (!preferencesObject.firstName || !preferencesObject.lastName) {
-        throw new Error('First name and last name are required');
-    }
 
     const userPropertiesService = PropertiesService.getUserProperties();
     const updatedPreferencesString = JSON.stringify(preferencesObject)
@@ -13,6 +10,8 @@ function setUserPreferences(preferencesObject) {
     userPropertiesService.setProperties({
         preferences: updatedPreferencesString
     })
+
+    const result = getUserPreferences();
     
-    return getUserPreferences();
+    return result
 }

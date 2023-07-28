@@ -1,4 +1,11 @@
 /**
+ * @typedef {Object} UserPreferences
+ * @property {string} firstName
+ * @property {string} lastName
+ */
+
+
+/**
  * @typedef {Object} DatasourceConfiguration
  * @property {string} spreadsheetId
  * @property {string} gid
@@ -15,11 +22,11 @@
  * @property {number} width
  * @property {string} format
  * @property {Object} filter
- * @property {string} filter.type
- * @property {string} filter.value
+ *      @property {string} filter.type
+ *      @property {string} filter.value
  * @property {Object} sort
- * @property {string} sort.type
- * @property {string} sort.value
+ *      @property {string} sort.type
+ *      @property {string} sort.value
  */
 
 /**
