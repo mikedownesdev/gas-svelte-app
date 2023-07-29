@@ -36,14 +36,19 @@
  */
 
 /**
+ * @typedef {Object} QueryResult
+ * @property {Date} producedAt
+ * @property {Object[]} records
+ */
+
+/**
  * Contains the data for the view, including its source (either `mocks` or `gas`)
  * as well as the configuration that produced the view and the records themselves.
  *
  * @typedef {Object} View
  * @property {string} source
  * @property {ViewConfiguration} configuration
- * @property {Object} data
- * @property {Object[]} data.records
+ * @property {QueryResult} queryResult
  *
  */
 

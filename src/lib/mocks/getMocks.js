@@ -78,10 +78,12 @@ export default function getMocks(resolve) {
       await sleep(2000);
       const resultSet = query(viewConfiguration);
 
+      /** @type {View} */
       let mockResponse = {
         source: "mocks",
         configuration: viewConfiguration,
-        data: {
+        queryResult: {
+          producedAt: new Date(),
           records: resultSet,
         },
       };

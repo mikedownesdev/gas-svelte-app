@@ -8,6 +8,10 @@ function convertToObjects_(data) {
   });
 }
 
+/**
+ * @param {ViewConfiguration} viewConfiguration 
+ * @returns {QueryResult}
+ */
 function query(viewConfiguration) {
   const { spreadsheetId, gid } = viewConfiguration.dataSource;
   const { fields } = viewConfiguration;
@@ -24,5 +28,9 @@ function query(viewConfiguration) {
       return acc;
     }, {});
   });
-  return data;
+
+  return {
+    producedAt: new Date(),
+    records: data
+  }
 }
