@@ -1,9 +1,8 @@
 <script>
-    import { onMount,afterUpdate, beforeUpdate, onDestroy } from 'svelte';
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import runGas from "../lib/runGas.js";
     
-    /** @type {string} */
+    /** @type {string} id - comes from URL params */
     export let id;
 
     /** @type {boolean} */
