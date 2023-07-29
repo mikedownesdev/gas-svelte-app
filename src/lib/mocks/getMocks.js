@@ -1,9 +1,13 @@
 import isJest from "../isJest";
 import { viewConfigurations } from "./viewConfigurations";
+import { dataSourceConfigurations } from "./dataSourceConfigurations";
 import { mockData } from "./mockData";
 
 function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, isJest() ? 0 : ms));
+  let milliseconds = ms || Math.floor(Math.random() * 2001) + 1000;
+  return new Promise((resolve) =>
+    setTimeout(resolve, isJest() ? 0 : milliseconds)
+  );
 }
 
 const query = (viewConfiguration) => {
@@ -21,8 +25,28 @@ const query = (viewConfiguration) => {
 
 export default function getMocks(resolve) {
   return {
+    /*========* App Configuration API *========*/
+
+    async getAppConfiguration() {
+      await sleep(100);
+
+      /** @type {AppConfiguration} */
+      let mockResponse = {
+        appName: "Mock App",
+        deployingUserEmail: "mock@mock.app",
+        dataSourceConfigurations: dataSourceConfigurations,
+        viewConfigurations: viewConfigurations,
+      };
+
+      resolve(JSON.parse(JSON.stringify(mockResponse)));
+    },
+
+    /*========* User Preferences API *========*/
+
     async getUserPreferences() {
       await sleep(1500);
+
+      /** @type {UserPreferences} */
       let mockResponse = {
         firstName: "John",
         lastName: "Mock",
@@ -31,11 +55,11 @@ export default function getMocks(resolve) {
     },
 
     async setUserPreferences(preferencesObject) {
-      console.log("going to sleep");
       await sleep(2000);
       console.log("Saved preferences " + Array.from(arguments).toString());
+
+      /** @type {UserPreferences} */
       let mockResponse = preferencesObject;
-      // console.log('Saved preferences ' + Array.from(arguments).toString());
       resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
 

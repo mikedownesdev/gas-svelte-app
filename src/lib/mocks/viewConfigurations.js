@@ -5,10 +5,12 @@
 export const viewConfigurations = [
   {
     id: "1",
+    label: "First View",
     dataSource: {
       spreadsheetId: "1XD1RVZsXw6DLQv_ksIdzuYdHPcsbpXhml94nMAz5_vA",
       gid: "0",
       storageType: "Google Sheets",
+      schema: { fields: [] },
     },
     pageSize: 10,
     fields: [
@@ -62,10 +64,12 @@ export const viewConfigurations = [
 
   {
     id: "2",
+    label: "Second View",
     dataSource: {
       spreadsheetId: "1XD1RVZsXw6DLQv_ksIdzuYdHPcsbpXhml94nMAz5_vA",
       gid: "0",
       storageType: "Google Sheets",
+      schema: { fields: [] },
     },
     pageSize: 10,
     fields: [

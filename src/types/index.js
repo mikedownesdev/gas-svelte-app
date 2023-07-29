@@ -9,6 +9,8 @@
  * @property {string} spreadsheetId
  * @property {string} gid
  * @property {string} storageType
+ * @property {Object} schema
+ *    @property {FieldConfiguration[]} schema.fields
  *
  */
 
@@ -17,12 +19,12 @@
  * @property {string} label
  * @property {string} name
  * @property {string} type
- * @property {number} width
- * @property {string} format
- * @property {Object} filter
+ * @property {number} [width]
+ * @property {string} [format]
+ * @property {Object} [filter]
  *      @property {string} filter.type
  *      @property {string} filter.value
- * @property {Object} sort
+ * @property {Object} [sort]
  *      @property {string} sort.type
  *      @property {string} sort.value
  */
@@ -30,6 +32,7 @@
 /**
  * @typedef {Object} ViewConfiguration
  * @property {string} id
+ * @property {string} label
  * @property {DatasourceConfiguration} dataSource
  * @property {number} pageSize
  * @property {FieldConfiguration[]} fields
@@ -54,6 +57,8 @@
 
 /**
  * @typedef {Object} AppConfiguration
+ * @property {string} [appName]
+ * @property {string} deployingUserEmail
  * @property {DatasourceConfiguration[]} dataSourceConfigurations
  * @property {ViewConfiguration[]} viewConfigurations
  */
