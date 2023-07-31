@@ -14,5 +14,11 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script type="module">
+      // This is necessary to load the homepage when the app is deployed to Google Apps Script
+      import { navigate } from "svelte-routing";
+      console.log('navigating')
+      navigate('/', { replace: true })
+    </script>
   </body>
 </html>
