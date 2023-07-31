@@ -8,9 +8,13 @@
     let loading = false;
 
     /** @type {AppConfiguration} */
-    let appConfiguration = undefined;
+    export let appConfiguration;
 
-    fetchAppConfiguration();
+    if (!appConfiguration) {
+        fetchAppConfiguration();
+    } else {
+        console.log('received appConfig from parent:', appConfiguration)
+    }
 
     /**
      * Fetches the app configuration from the server.

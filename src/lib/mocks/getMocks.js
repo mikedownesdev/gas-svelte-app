@@ -1,6 +1,7 @@
 import isJest from "../isJest";
 import { viewConfigurations } from "./viewConfigurations";
 import { dataSourceConfigurations } from "./dataSourceConfigurations";
+import { appConfiguration } from "./appConfiguration";
 import { mockData } from "./mockData";
 
 function sleep(ms) {
@@ -31,12 +32,7 @@ export default function getMocks(resolve) {
       await sleep(100);
 
       /** @type {AppConfiguration} */
-      let mockResponse = {
-        appName: "Mock App",
-        deployingUserEmail: "mock@mock.app",
-        dataSourceConfigurations: dataSourceConfigurations,
-        viewConfigurations: viewConfigurations,
-      };
+      let mockResponse = appConfiguration;
 
       resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
@@ -107,7 +103,7 @@ export default function getMocks(resolve) {
         source: "mocks",
         configuration: viewConfiguration,
         queryResult: {
-          producedAt: new Date(),
+          producedAt: new Date().toISOString(),
           records: resultSet,
         },
       };

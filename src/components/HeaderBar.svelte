@@ -1,5 +1,5 @@
 <script>
-
+    export let title = "";
 </script>
 
 <div class="navbar bg-primary mb-8">
@@ -20,11 +20,10 @@
         </label>
     </div>
     <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">Header Goes Here</a>
+        <a class="btn btn-ghost normal-case text-xl">{title}</a>
     </div>
 
     <div class="flex-none">
-        <input type="checkbox" class="toggle" checked />
         <ul class="menu bg-base-200 lg:menu-horizontal rounded-box">
             <li>
                 <a>
