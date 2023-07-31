@@ -48,13 +48,13 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       <!-- Page content here -->
-      <HeaderBar title={appConfiguration?.appName}/>
+      <HeaderBar title={appConfiguration?.appName} />
       <main class="container mx-auto">
         <Route path="/">
           <Home />
         </Route>
         <Route path="settings">
-          <Settings appConfiguration={appConfiguration}/>
+          <Settings {appConfiguration} />
         </Route>
         <Route path="user-preferences">
           <UserPreferences />
@@ -72,15 +72,32 @@
       <label for="my-drawer" class="drawer-overlay" />
       <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content pt-16">
         <!-- Sidebar content here -->
-        <li><Link to="/">Home</Link></li>
+        <li>
+          <Link to="/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+              /></svg
+            >
+            Home
+          </Link>
+        </li>
         <li><Link to="settings">Settings</Link></li>
         <li><Link to="user-preferences">User Preferences</Link></li>
         <li><Link to="blog">Blog</Link></li>
         <div class="divider" />
         {#if appConfiguration}
-        {#each appConfiguration?.viewConfigurations as view}
-          <li><Link to="view/{view.id}">{view.label}</Link></li>
-        {/each}
+          {#each appConfiguration?.viewConfigurations as view}
+            <li><Link to="view/{view.id}">{view.label}</Link></li>
+          {/each}
         {/if}
       </ul>
     </div>

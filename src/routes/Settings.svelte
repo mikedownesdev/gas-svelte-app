@@ -10,11 +10,11 @@
     /** @type {AppConfiguration} */
     export let appConfiguration;
 
-    if (!appConfiguration) {
-        fetchAppConfiguration();
-    } else {
-        console.log('received appConfig from parent:', appConfiguration)
-    }
+    // if (!appConfiguration) {
+    //     fetchAppConfiguration();
+    // } else {
+    //     console.log('received appConfig from parent:', appConfiguration)
+    // }
 
     /**
      * Fetches the app configuration from the server.

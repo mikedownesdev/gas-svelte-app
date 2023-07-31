@@ -29,7 +29,7 @@ export default function getMocks(resolve) {
     /*========* App Configuration API *========*/
 
     async getAppConfiguration() {
-      await sleep(100);
+      await sleep(2000);
 
       /** @type {AppConfiguration} */
       let mockResponse = appConfiguration;
