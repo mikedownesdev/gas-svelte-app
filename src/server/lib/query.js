@@ -9,7 +9,7 @@ function convertToObjects_(data) {
 }
 
 /**
- * @param {ViewConfiguration} viewConfiguration 
+ * @param {ViewConfiguration} viewConfiguration
  * @returns {QueryResult}
  */
 function query(viewConfiguration) {
@@ -30,7 +30,7 @@ function query(viewConfiguration) {
   });
 
   return {
-    producedAt: new Date(),
-    records: data
-  }
+    producedAt: new Date().toISOString(),
+    records: data,
+  };
 }

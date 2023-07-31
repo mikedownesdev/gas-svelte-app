@@ -40,7 +40,7 @@
 
 /**
  * @typedef {Object} QueryResult
- * @property {Date} producedAt
+ * @property {string} producedAt -- This is an ISO String representation of a timestamp.
  * @property {Object[]} records
  */
 

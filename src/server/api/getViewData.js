@@ -13,13 +13,14 @@ function getViewData(viewId) {
     "Found config, reading dataSource and applying view schema:",
     viewConfiguration
   );
+
   const queryResult = query(viewConfiguration);
 
-  let mockResponse = {
+  let response = {
     source: "gas",
     configuration: viewConfiguration,
     queryResult: queryResult
   };
 
-  return mockResponse;
+  return response;
 }
