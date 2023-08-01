@@ -1,4 +1,5 @@
 <script>
+    import { Link } from "svelte-routing";
     export let title = "";
 </script>
 
@@ -20,13 +21,15 @@
         </label>
     </div>
     <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">{title}</a>
+        <div class="btn btn-ghost normal-case text-xl">
+            <Link to="/">{title}</Link>
+        </div>
     </div>
 
     <div class="flex-none">
         <ul class="menu bg-base-200 lg:menu-horizontal rounded-box">
             <li>
-                <a>
+                <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -42,10 +45,10 @@
                     >
                     Inbox
                     <span class="badge badge-sm">99+</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a>
+                <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -61,13 +64,13 @@
                     >
                     Updates
                     <span class="badge badge-sm badge-warning">NEW</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a>
+                <div>
                     Stats
                     <span class="badge badge-xs badge-info" />
-                </a>
+                </div>
             </li>
         </ul>
     </div>
