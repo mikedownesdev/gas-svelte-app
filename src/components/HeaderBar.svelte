@@ -1,6 +1,7 @@
 <script>
     import { Link } from "svelte-routing";
     export let title = "";
+    export let user = undefined;
 </script>
 
 <div class="navbar bg-base-100 mb-8">
@@ -73,5 +74,10 @@
                 </div>
             </li>
         </ul>
+        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+                <img src={user?.profileImgUrl} />
+            </div>
+        </label>
     </div>
 </div>

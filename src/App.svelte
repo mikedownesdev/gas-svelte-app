@@ -72,7 +72,7 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content bg-base-200">
       <!-- Page content here -->
-      <HeaderBar title={appConfiguration?.appName} />
+      <HeaderBar title={appConfiguration?.appName} user={user} />
       <main class="container mx-auto">
         <Route path="/">
           <Home user={user} />
