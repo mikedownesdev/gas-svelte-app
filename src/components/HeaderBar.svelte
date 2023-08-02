@@ -3,7 +3,7 @@
     export let title = "";
 </script>
 
-<div class="navbar bg-primary mb-8">
+<div class="navbar bg-base-100 mb-8">
     <div class="flex-none">
         <label for="my-drawer" class="btn btn-square btn-ghost">
             <svg

@@ -3,9 +3,16 @@
  */
 function getAppConfiguration() {
   console.log("getting app configuration");
-  // Check user identity for permissions to view this configuration
+  
+  /** @type {AppConfiguration} */
+  const appConfigurationObject = loadAppConfiguration_()
 
-  //
+  // Do we want to filter the appConfig based on user?
+
+  return appConfigurationObject;
+}
+
+function loadAppConfiguration_() {
   const scriptPropertiesService = PropertiesService.getScriptProperties();
   const scriptProperties = scriptPropertiesService.getProperties();
   const appConfigurationString = scriptProperties.appConfiguration;
@@ -14,8 +21,6 @@ function getAppConfiguration() {
     throw new Error("App configuration not found");
   }
 
-  /** @type {AppConfiguration} */
-  const appConfigurationObject = JSON.parse(appConfigurationString);
-
-  return appConfigurationObject;
+  return JSON.parse(appConfigurationString);
+  
 }
