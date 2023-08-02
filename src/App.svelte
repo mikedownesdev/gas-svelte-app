@@ -17,8 +17,32 @@
 
   /** @type {AppConfiguration} */
   let appConfiguration = undefined;
+  let user = undefined;
 
+  fetchUser();
   fetchAppConfiguration();
+
+  /**
+   * Fetches the user from the server.
+   */
+  async function fetchUser() {
+    loading = true;
+
+    console.log("fetching user...");
+
+    runGas("getUser")
+      .then((result) => {
+        user = result;
+        console.log("User:", user);
+      })
+      .catch((err) => {
+        console.error("Could not get user:", err);
+      })
+      .finally(() => {
+        console.log("User loaded.");
+        loading = false;
+      });
+  }
 
   /**
    * Fetches the app configuration from the server.
@@ -46,18 +70,18 @@
 <Router {url}>
   <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
+    <div class="drawer-content bg-base-200">
       <!-- Page content here -->
       <HeaderBar title={appConfiguration?.appName} />
       <main class="container mx-auto">
         <Route path="/">
-          <Home />
+          <Home user={user} />
         </Route>
         <Route path="settings">
           <Settings {appConfiguration} />
         </Route>
         <Route path="user-preferences">
-          <UserPreferences />
+          <UserPreferences userPreferences={user.preferences}/>
         </Route>
         <Route path="blog/*">
           <Blog />

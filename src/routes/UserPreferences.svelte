@@ -2,7 +2,11 @@
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import runGas from "../lib/runGas.js";
 
-    var userPreferences = undefined;
+    /** @type {boolean} */
+    let loading = false;
+
+    /** @type {UserPreferences | undefined} */
+    export let userPreferences = undefined;
 
     async function handleClick() {
         // Function to be triggered when the button is clicked
@@ -57,11 +61,7 @@
             });
     }
 
-    
-    let loading = true;
-    console.log('loading', loading)
-    fetchUserPreferences();
-    
+    if (!userPreferences) { fetchUserPreferences(); }
 </script>
 
 <div>

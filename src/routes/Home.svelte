@@ -1,5 +1,10 @@
+<script>
+  /** @type {User} */
+  export let user;
+</script>
+
 <div>
-  <h1>Welcome Back, //USER//</h1>
+  <h1>Welcome Back, {user?.preferences?.firstName}</h1>
 
   <div class="flex flex-wrap gap-4 justify-center">
     <div class="stats shadow">
@@ -47,7 +52,7 @@
         <div class="stat-figure text-secondary">
           <div class="avatar online">
             <div class="w-16 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src={user?.profileImgUrl} />
             </div>
           </div>
         </div>
