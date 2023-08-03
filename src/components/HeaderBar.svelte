@@ -1,7 +1,7 @@
 <script>
     import { Link } from "svelte-routing";
     export let title = "";
-    export let user = undefined;
+    import { sessionUser } from '../stores';
 </script>
 
 <div class="navbar bg-base-100 mb-8">
@@ -76,7 +76,7 @@
         </ul>
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
-                <img src={user?.profileImgUrl} />
+                <img src={$sessionUser?.profileImgUrl} />
             </div>
         </label>
     </div>

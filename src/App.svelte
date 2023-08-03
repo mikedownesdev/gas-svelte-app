@@ -1,5 +1,6 @@
 <script>
   import { Link, Route, Router } from "svelte-routing";
+  import ProtectedRoute from "./components/ProtectedRoute.svelte";
   import Blog from "./routes/Blog.svelte";
   import View from "./routes/View.svelte";
   import Home from "./routes/Home.svelte";
@@ -8,6 +9,10 @@
   import HeaderBar from "./components/HeaderBar.svelte";
   import Footer from "./components/Footer.svelte";
   import runGas from "./lib/runGas";
+  import { onMount } from "svelte";
+
+  import { sessionUser } from "./stores";
+
 
   // Used for SSR. A falsy value is ignored by the Router.
   export let url = "";
@@ -19,8 +24,11 @@
   let appConfiguration = undefined;
   let user = undefined;
 
-  fetchUser();
-  fetchAppConfiguration();
+
+  onMount(() => {
+    fetchUser();
+    fetchAppConfiguration();
+  });
 
   /**
    * Fetches the user from the server.
@@ -32,8 +40,9 @@
 
     runGas("getUser")
       .then((result) => {
-        user = result;
-        console.log("User:", user);
+        // user = result;
+        sessionUser.set(result)
+        console.log("User:", result);
       })
       .catch((err) => {
         console.error("Could not get user:", err);
@@ -42,6 +51,7 @@
         console.log("User loaded.");
         loading = false;
       });
+
   }
 
   /**
@@ -72,20 +82,20 @@
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content bg-base-200">
       <!-- Page content here -->
-      <HeaderBar title={appConfiguration?.appName} user={user} />
+      <HeaderBar title={appConfiguration?.appName} />
       <main class="container mx-auto">
         <Route path="/">
-          <Home user={user} />
+          <Home />
         </Route>
-        <Route path="settings">
-          <Settings {appConfiguration} />
-        </Route>
+        <ProtectedRoute path="settings">
+          <Settings appConfiguration={appConfiguration}/>
+        </ProtectedRoute>
         <Route path="user-preferences">
-          <UserPreferences userPreferences={user.preferences}/>
+          <UserPreferences userPreferences={$sessionUser.preferences}/>
         </Route>
-        <Route path="blog/*">
+        <Route path="blog">
           <Blog />
-        </Route>
+        </Route>        
         <Route path="view/:id" let:params>
           <View id={params.id} />
         </Route>

@@ -1,10 +1,9 @@
 <script>
-  /** @type {User} */
-  export let user;
+  import { sessionUser } from "../stores";
 </script>
 
 <div>
-  <h1>Welcome Back, {user?.preferences?.firstName}</h1>
+  <h1>Welcome Back, {$sessionUser?.preferences?.firstName}</h1>
 
   <div class="flex flex-wrap gap-4 justify-center">
     <div class="stats shadow">
@@ -52,7 +51,7 @@
         <div class="stat-figure text-secondary">
           <div class="avatar online">
             <div class="w-16 rounded-full">
-              <img src={user?.profileImgUrl} />
+              <img src={$sessionUser?.profileImgUrl} />
             </div>
           </div>
         </div>
