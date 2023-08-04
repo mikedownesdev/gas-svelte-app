@@ -3,6 +3,7 @@
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import runGas from "../lib/runGas.js";
     import Panel from "../components/Panel.svelte";
+    import { isLoading } from "../stores";
 
     /** @type {boolean} */
     let loading = false;
@@ -14,7 +15,7 @@
      * Fetches the app configuration from the server.
      */
     async function fetchAppConfiguration() {
-        loading = true;
+        isLoading.set(true)
 
         console.log("fetching app configuration...");
 
@@ -28,7 +29,7 @@
             })
             .finally(() => {
                 console.log("App configuration loaded.");
-                loading = false;
+                isLoading.set(false)
             });
     }
 </script>

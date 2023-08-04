@@ -2,6 +2,7 @@
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
+    import { isLoading } from "../stores";
 
     /** @type {boolean} */
     let loading = false;
@@ -25,7 +26,7 @@
     }
 
     async function submitUserPreferences(preferencesObject) {
-        loading = true;
+        isLoading.set(true);
 
         console.log("submitting user preferences...", preferencesObject);
 
@@ -39,12 +40,12 @@
             })
             .finally(() => {
                 console.log("User preferences submitted.");
-                loading = false;
+                isLoading.set(false)
             });
     }
 
     async function fetchUserPreferences() {
-        loading = true;
+        isLoading.set(true)
 
         console.log("fetching user preferences...");
 
@@ -58,7 +59,7 @@
             })
             .finally(() => {
                 console.log("User preferences loaded.");
-                loading = false;
+                isLoading.set(false)
             });
     }
 
@@ -68,9 +69,6 @@
 </script>
 
 <div>
-    {#if loading}
-        <LoadingSpinner />
-    {/if}
     {#if userPreferences}
         <Panel title="User Preferences">
             <p class="text-gray-500">

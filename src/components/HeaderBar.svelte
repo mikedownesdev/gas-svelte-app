@@ -1,10 +1,10 @@
 <script>
     import { Link } from "svelte-routing";
     export let title = "";
-    import { sessionUser } from '../stores';
+    import { sessionUser, isLoading } from "../stores";
 </script>
 
-<div class="navbar bg-base-100 mb-8">
+<div class="navbar bg-base-100 mb-8 {$isLoading ? 'loading-border' : ''}">
     <div class="flex-none">
         <label for="my-drawer" class="btn btn-square btn-ghost">
             <svg
@@ -75,11 +75,38 @@
             </li>
         </ul>
         <Link to={`/user/${$sessionUser?.email}`}>
-        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-                <img src={$sessionUser?.profileImgUrl} />
-            </div>
-        </label>
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <div
+                    class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1"
+                >
+                    <img src={$sessionUser?.profileImgUrl} />
+                </div>
+            </label>
         </Link>
     </div>
 </div>
+
+<style>
+    @keyframes loading {
+        0% {
+            border-bottom-color: transparent;
+        }
+        35% {
+            border-bottom-color: hsl(var(--p));
+        }
+        50% {
+            border-bottom-color: hsl(var(--pf));
+        }
+        65% {
+            border-bottom-color: hsl(var(--p));
+        }
+        100% {
+            border-bottom-color: transparent;
+        }
+    }
+
+    .loading-border {
+        border-bottom: 2px solid transparent; 
+        animation: loading 1s linear infinite;
+    }
+</style>

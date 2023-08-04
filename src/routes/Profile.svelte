@@ -2,6 +2,7 @@
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
+    import { isLoading } from "../stores";
 
     /** @type {string} id - comes from URL params */
     export let email;
@@ -20,7 +21,7 @@
      * @param {string} email
      */
     async function fetchUser(email) {
-        loading = true;
+        isLoading.set(true)
 
         console.log("fetching user data for profile...");
 
@@ -34,7 +35,7 @@
             })
             .finally(() => {
                 console.log("User profile loaded.");
-                loading = false;
+                isLoading.set(false)
             });
     }
 </script>

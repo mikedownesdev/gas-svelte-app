@@ -84,7 +84,7 @@
     <div class="drawer-content bg-base-200">
       <!-- Page content here -->
       <HeaderBar title={appConfiguration?.appName} />
-      <main class="container mx-auto">
+      <main class="container mx-auto pb-8">
         <Route path="/">
           <Home />
         </Route>

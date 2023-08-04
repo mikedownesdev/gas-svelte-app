@@ -1,6 +1,7 @@
 <script>
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import runGas from "../lib/runGas.js";
+    import { isLoading } from "../stores";
     
     /** @type {string} id - comes from URL params */
     export let id;
@@ -19,7 +20,7 @@
      * @param {string} id
      */
     async function fetchViewData(id) {
-        loading = true;
+        isLoading.set(true)
         
         console.log('fetching view data...')
         
@@ -33,7 +34,7 @@
             })
             .finally(() => {
                 console.log('View data loaded.');
-                loading = false;
+                isLoading.set(false)
             });
     }
 </script>
