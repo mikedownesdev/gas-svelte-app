@@ -1,7 +1,7 @@
 import isJest from "../isJest";
 import { viewConfigurations } from "./viewConfigurations";
 import { dataSourceConfigurations } from "./dataSourceConfigurations";
-import { user } from "./user";
+import { user, users } from "./user";
 import { appConfiguration } from "./appConfiguration";
 import { mockData } from "./mockData";
 
@@ -110,11 +110,17 @@ export default function getMocks(resolve) {
     },
 
     /*========* Users API *========*/
-    async getUser() {
-      await sleep(2000);
+    async getUser(email) {
+      await sleep(1000);
 
-      /** @type {User} */
-      let mockResponse = user;
+      /** @type {User | undefined} */
+      let mockResponse = undefined;
+
+      if (!email) { mockResponse = user; } 
+      else {mockResponse = users.find((user) => user.email === email); }
+
+      console.log("mockRsponse", mockResponse)
+
       resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
   };

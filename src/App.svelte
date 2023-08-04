@@ -6,6 +6,7 @@
   import Home from "./routes/Home.svelte";
   import Settings from "./routes/Settings.svelte";
   import UserPreferences from "./routes/UserPreferences.svelte";
+  import Profile from "./routes/Profile.svelte";
   import HeaderBar from "./components/HeaderBar.svelte";
   import Footer from "./components/Footer.svelte";
   import runGas from "./lib/runGas";
@@ -98,6 +99,9 @@
         </Route>        
         <Route path="view/:id" let:params>
           <View id={params.id} />
+        </Route>
+        <Route path="user/:email" let:params>
+          <Profile email={params.email} />
         </Route>
       </main>
       <Footer />

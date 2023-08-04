@@ -1,9 +1,11 @@
 import { dataSourceConfigurations } from "./dataSourceConfigurations";
 import { viewConfigurations } from "./viewConfigurations";
+import { user } from "./user";
 
 export const appConfiguration = {
     appName: "Mock App",
-    deployingUserEmail: "Mockman@mocks.net",
+    deployingUserEmail: user.email,
+    admins: ["Mockman@mocks.net"],
     dataSourceConfigurations,
     viewConfigurations,
 };  

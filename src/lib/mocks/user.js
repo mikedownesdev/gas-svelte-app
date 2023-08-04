@@ -1,8 +1,8 @@
 /** @type {User} */
 export const user = {
-    email: "mock.mockerson@mock.net",
+    email: "mock_mockerson",
     roles: ["superAdmin", "admin"],
-    profileImgUrl: "http://via.placeholder.com/48x48",
+    profileImgUrl: "../../../images/man2.jpeg",
     preferences: {
         firstName: "Mock",
         lastName: "Mockerson",
@@ -11,5 +11,34 @@ export const user = {
         firstActiveAt: "2023-01-01T00:00:00.000Z",
         lastActiveAt: new Date().toISOString()
     }
-
 }
+
+export const users = [
+    user,
+    {
+        email: "johndoe",
+        roles: ["admin"],
+        profileImgUrl: "../../../images/man1.jpeg",
+        preferences: {
+            firstName: "John",
+            lastName: "Doe",
+        },
+        activity: {
+            firstActiveAt: "2023-01-01T00:00:00.000Z",
+            lastActiveAt: "2023-03-12T00:00:00.000Z",
+        }
+    },
+    {
+        email: "janedoe",
+        roles: [],
+        profileImgUrl: "../../../images/woman1.jpeg",
+        preferences: {
+            firstName: "Jane",
+            lastName: "Doe",
+        },
+        activity: {
+            firstActiveAt: "2023-01-01T00:00:00.000Z",
+            lastActiveAt: "2023-03-12T00:00:00.000Z",
+        }
+    }
+]

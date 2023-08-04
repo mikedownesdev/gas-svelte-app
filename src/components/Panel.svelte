@@ -2,7 +2,7 @@
     export let title = "";
 </script>
 
-<div class="mt-8">
+<div class="mt-8 w-full">
     <div class="flex justify-between">
         <h3 class="card-title">{title}</h3>
         <button class="btn btn-sm btn-primary rounded-md">save</button>

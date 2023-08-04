@@ -74,10 +74,12 @@
                 </div>
             </li>
         </ul>
+        <Link to={`/user/${$sessionUser?.email}`}>
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
+            <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
                 <img src={$sessionUser?.profileImgUrl} />
             </div>
         </label>
+        </Link>
     </div>
 </div>
