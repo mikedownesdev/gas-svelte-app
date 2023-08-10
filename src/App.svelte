@@ -9,14 +9,32 @@
   import Profile from "./routes/Profile.svelte";
   import HeaderBar from "./components/HeaderBar.svelte";
   import Footer from "./components/Footer.svelte";
+  import Toaster from "./components/Toaster.svelte";
+  import Toast from "./components/Toast.svelte";
   import runGas from "./lib/runGas";
   import { onMount } from "svelte";
-
   import { sessionUser } from "./stores";
-
 
   // Used for SSR. A falsy value is ignored by the Router.
   export let url = "";
+
+
+  let toasts= []
+
+  /**
+   * 
+   * @param event
+   * @property {string} event.detail.alertType
+   * @property {string} event.detail.message
+   * @property {number} event.detail.time
+   */
+  function handleNewToast(event) {
+		console.log(event.detail);
+    toasts = [...toasts, event.detail]
+    setTimeout(() => {
+      toasts = toasts.filter(toast => toast.id !== event.detail.id);
+    }, 2000);
+	}
 
   /** @type {boolean} */
   let loading = false;
@@ -24,7 +42,6 @@
   /** @type {AppConfiguration} */
   let appConfiguration = undefined;
   let user = undefined;
-
 
   onMount(() => {
     fetchUser();
@@ -42,7 +59,7 @@
     runGas("getUser")
       .then((result) => {
         // user = result;
-        sessionUser.set(result)
+        sessionUser.set(result);
         console.log("User:", result);
       })
       .catch((err) => {
@@ -52,7 +69,6 @@
         console.log("User loaded.");
         loading = false;
       });
-
   }
 
   /**
@@ -86,17 +102,20 @@
       <HeaderBar title={appConfiguration?.appName} />
       <main class="container mx-auto pb-8">
         <Route path="/">
-          <Home />
+          <Home on:newToast={handleNewToast}/>
         </Route>
         <ProtectedRoute path="settings">
-          <Settings appConfiguration={appConfiguration}/>
+          <Settings {appConfiguration} />
         </ProtectedRoute>
         <Route path="user-preferences">
-          <UserPreferences userPreferences={$sessionUser.preferences}/>
+          <UserPreferences 
+            userPreferences={$sessionUser.preferences} 
+            on:newToast={handleNewToast}
+          />
         </Route>
         <Route path="blog">
           <Blog />
-        </Route>        
+        </Route>
         <Route path="view/:id" let:params>
           <View id={params.id} />
         </Route>
@@ -140,4 +159,5 @@
       </ul>
     </div>
   </div>
+  <Toaster {toasts} />
 </Router>

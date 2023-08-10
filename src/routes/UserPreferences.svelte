@@ -3,6 +3,8 @@
     import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     /** @type {boolean} */
     let loading = false;
@@ -34,12 +36,21 @@
             .then((result) => {
                 userPreferences = result;
                 console.log("User preferences:", userPreferences);
+                dispatch("newToast", {
+                    alertType: 'success',
+                    message: 'User preferences saved!',
+                    time: 300,
+                })
             })
             .catch((err) => {
                 console.error("Error submitting user preferences", err);
+                dispatch("newToast", {
+                    alertType: 'error',
+                    message: 'Your preferences could not be saved.',
+                    time: 300,
+                })
             })
             .finally(() => {
-                console.log("User preferences submitted.");
                 isLoading.set(false)
             });
     }
