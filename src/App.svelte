@@ -19,7 +19,7 @@
   export let url = "";
 
 
-  let toasts= []
+  let toasts = []
 
   /**
    * 
@@ -33,7 +33,7 @@
     toasts = [...toasts, event.detail]
     setTimeout(() => {
       toasts = toasts.filter(toast => toast.id !== event.detail.id);
-    }, 2000);
+    }, event.detail.milliseconds);
 	}
 
   /** @type {boolean} */

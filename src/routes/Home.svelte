@@ -6,9 +6,10 @@
   function handleClick() {
 
     const toast = {
+      id: Date.now(),
       alertType: 'info',
       message: 'Hello, world!',
-      time: 300,
+      milliseconds: 2000
     };
 
     dispatch("newToast", toast)

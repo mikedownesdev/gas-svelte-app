@@ -37,17 +37,19 @@
                 userPreferences = result;
                 console.log("User preferences:", userPreferences);
                 dispatch("newToast", {
+                    id: Date.now(),
                     alertType: 'success',
                     message: 'User preferences saved!',
-                    time: 300,
+                    milliseconds: 3000,
                 })
             })
             .catch((err) => {
                 console.error("Error submitting user preferences", err);
                 dispatch("newToast", {
+                    id: Date.now(),
                     alertType: 'error',
                     message: 'Your preferences could not be saved.',
-                    time: 300,
+                    milliseconds: 3000,
                 })
             })
             .finally(() => {
