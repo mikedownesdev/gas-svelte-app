@@ -11,10 +11,16 @@ export default defineConfig({
     viteSingleFile(),
     copy({
       targets: [
-          { src: 'src/server', dest: 'dist' }
+        { src: 'src/server', dest: 'dist' }
       ],
       flatten: false,
-  }),
+    }),
+    copy({
+      targets: [
+        { src: 'src/types', dest: 'dist' }
+      ],
+      flatten: false,
+    }),
   ],
   build: {
     minify: true,
