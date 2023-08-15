@@ -6,7 +6,7 @@
 
 <div class="navbar bg-base-100 mb-8 {$isLoading ? 'loading-border' : ''}">
     <div class="flex-none">
-        <label for="my-drawer" class="btn btn-square btn-ghost">
+        <label for="nav-drawer-control" class="btn btn-square btn-ghost">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
