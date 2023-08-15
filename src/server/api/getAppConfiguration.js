@@ -3,9 +3,9 @@
  */
 function getAppConfiguration() {
   console.log("getting app configuration");
-  
+
   /** @type {AppConfiguration} */
-  const appConfigurationObject = loadAppConfiguration_()
+  const appConfigurationObject = loadAppConfiguration_();
 
   // Do we want to filter the appConfig based on user?
 
@@ -22,5 +22,4 @@ function loadAppConfiguration_() {
   }
 
   return JSON.parse(appConfigurationString);
-  
 }

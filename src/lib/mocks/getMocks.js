@@ -116,10 +116,13 @@ export default function getMocks(resolve) {
       /** @type {User | undefined} */
       let mockResponse = undefined;
 
-      if (!email) { mockResponse = user; } 
-      else {mockResponse = users.find((user) => user.email === email); }
+      if (!email) {
+        mockResponse = user;
+      } else {
+        mockResponse = users.find((user) => user.email === email);
+      }
 
-      console.log("mockRsponse", mockResponse)
+      console.log("mockRsponse", mockResponse);
 
       resolve(JSON.parse(JSON.stringify(mockResponse)));
     },
