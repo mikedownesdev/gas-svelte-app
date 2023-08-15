@@ -1,6 +1,6 @@
 /** @type {User} */
 export const user = {
-    email: "mock_mockerson",
+    email: "mock_mockerson@test.com",
     roles: ["superAdmin", "admin"],
     profileImgUrl: "../../../images/man2.jpeg",
     preferences: {
