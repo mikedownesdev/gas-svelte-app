@@ -1,14 +1,42 @@
-# Svelte + Vite
+# About
 
-This template should help get you started developing with Svelte in Vite.
+This is a proof-of-concept project to create a template for new web
+applications that run on Google Apps Script. It uses...
+
+- [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) for the front end
+- [DaisyUI] / [TailwindCSS] for components & styling
+- [Google Apps Script] for the back end
+- [JSDoc] type definitions
+- [Vite] for the build process
+
+Whereas a "boilerplate" may produce the bare minimum to get a new web app off
+the ground, this project provides a few extra opinions, UI elements, type definitions, etc that I would consider useful for most applications, rather than just an app skeleton.
+
+# How to Use
+
+# Other Notable Dependncies
+
+- [clasp]
+- [clasp.env]
+
+# Features
+
+
+# Critical Decisions
+
+```
+"timeZone": "America/New_York"
+```
+```
+"webapp": {
+    "executeAs": "USER_DEPLOYING" vs "executeAs": "USER_ACCESSING",
+    "access": "ANYONE" vs "access": "ANYONE_ANONYMOUS"
+}
+```
 
 ## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
-
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
 
 ## Technical considerations
 
