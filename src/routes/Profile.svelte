@@ -71,7 +71,7 @@
                 </h2>
             </div>
             <div class="py-1">
-                <span>{user.email}@email.com</span>
+                <span>{user.email}</span>
             </div>
             <div class="py-1">
                 {#each user.roles as role}

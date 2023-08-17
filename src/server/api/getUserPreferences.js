@@ -2,15 +2,14 @@
  * @returns {UserPreferences | Object}
  */
 function getUserPreferences() {
-  
   const accessingUser = Session.getActiveUser().getEmail();
-  
-  console.log(`getting User Preferences for ${accessingUser}`)
+
+  console.log(`getting User Preferences for ${accessingUser}`);
 
   /** @type {UserPreferences} */
   const userPreferences = loadPreferencesForUser_(accessingUser);
 
-  return userPreferences || { firstName: "", lastName: ""};
+  return userPreferences || { firstName: "", lastName: "" };
 }
 
 /**
@@ -23,7 +22,7 @@ function loadPreferencesForUser_(email) {
   const userPreferencesString = scriptProperties.userPreferences;
 
   if (!userPreferencesString) {
-    throw new Error('No user preferences found');
+    throw new Error("No user preferences found");
   }
 
   const allUserPreferences = JSON.parse(userPreferencesString);
