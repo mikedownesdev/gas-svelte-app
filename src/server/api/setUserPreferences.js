@@ -3,12 +3,19 @@
  * @returns {UserPreferences}
  */
 function setUserPreferences(preferencesObject) {
-  const userPropertiesService = PropertiesService.getUserProperties();
-  const updatedPreferencesString = JSON.stringify(preferencesObject);
 
-  userPropertiesService.setProperties({
-    preferences: updatedPreferencesString,
-  });
+  const accessingUser = Session.getActiveUser().getEmail();
+
+  console.log(`Updating User Preferences for ${accessingUser}`)
+
+  const scriptPropertiesService = PropertiesService.getScriptProperties();
+  const scriptProperties = scriptPropertiesService.getProperties();
+  const userPreferencesString = scriptProperties.userPreferences;
+
+  const allUserPreferences = JSON.parse(userPreferencesString);
+  allUserPreferences[accessingUser] = preferencesObject;
+
+  scriptPropertiesService.setProperty('userPreferences', JSON.stringify(allUserPreferences));
 
   const result = getUserPreferences();
 
