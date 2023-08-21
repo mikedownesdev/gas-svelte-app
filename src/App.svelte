@@ -125,9 +125,6 @@
             on:newToast={handleNewToast}
           />
         </Route>
-        <Route path="blog">
-          <Blog />
-        </Route>
         <Route path="view/:id" let:params>
           <View id={params.id} />
         </Route>
