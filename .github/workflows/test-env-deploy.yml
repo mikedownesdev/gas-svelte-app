@@ -3,7 +3,7 @@ name: Test Env Deploy Script
 on:
   workflow_dispatch:
   push:
-    branches: [testing]
+    branches: [test]
 
 jobs:
   deploy:
