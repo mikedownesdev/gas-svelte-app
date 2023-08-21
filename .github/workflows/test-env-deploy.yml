@@ -10,9 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install clasp
-        id: install-clasp
-        run: sudo npm install @google/clasp@2.4.1 -g
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
 
       - name: Write CLASPRC_JSON secret to .clasprc.json file
         id: write-clasprc
@@ -47,15 +52,8 @@ jobs:
         run: jq '.scriptId = "${{env.TEST_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           TEST_SCRIPT_ID: ${{secrets.TEST_SCRIPT_ID}}
-
-      - name: Checkout repo
-        uses: actions/checkout@v3
   
-      - name: Setup Node
-        uses: actions/setup-node@v3
-
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+      ## Build & push
 
       - name: Build project
         run: npm run build
@@ -64,9 +62,9 @@ jobs:
         id: clasp-push
         run: clasp push -f
 
-      - name: Deploy Script
-        id: clasp-deploy
-        if: ${{env.TEST_DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/develop'))}}
-        run: clasp deploy -i "$TEST_DEPLOYMENT_ID" -d ${{github.run_number}}
-        env:
-          TEST_SCRIPT_ID: ${{ secrets.TEST_SCRIPT_ID }}
+      # - name: Deploy Script
+      #   id: clasp-deploy
+      #   if: ${{env.TEST_DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/develop'))}}
+      #   run: clasp deploy -i "$TEST_DEPLOYMENT_ID" -d ${{github.run_number}}
+      #   env:
+      #     TEST_SCRIPT_ID: ${{ secrets.TEST_SCRIPT_ID }}
