@@ -1,4 +1,6 @@
 <script>
+    import { isLoading } from "../stores";
+
     export let title = "";
 </script>
 
@@ -7,9 +9,14 @@
         <h3 class="card-title">{title}</h3>
         <!-- <button class="btn btn-sm btn-primary rounded-md">save</button> -->
     </div>
-    <div class="card mt-4 bg-base-100 p-8 border-base-300 border-2 rounded-md shadow-sm">
-    <slot>
-
-    </slot>
+    <div
+        class="card mt-4 bg-base-100 p-8 border-base-300 border-2 rounded-md shadow-sm"
+    >
+        {#if $isLoading}
+            <div
+                class="absolute w-full bg-base-300 opacity-50 h-full top-0 left-0"
+            />
+        {/if}
+        <slot />
     </div>
 </div>

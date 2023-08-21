@@ -1,5 +1,4 @@
 <script>
-    import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
@@ -10,7 +9,7 @@
     let loading = false;
 
     /** @type {UserPreferences | undefined} */
-    export let userPreferences = undefined;
+    export let userPreferences = { firstName: "test", lastName: "test" };
 
     async function handleClick() {
         // Function to be triggered when the button is clicked
@@ -21,7 +20,7 @@
                 firstName: userPreferences.firstName,
                 lastName: userPreferences.lastName,
             };
-            userPreferences = await submitUserPreferences(preferencesObject);
+            await submitUserPreferences(preferencesObject);
         } catch (err) {
             console.error("handleClick completed with error", err);
         }
@@ -82,7 +81,7 @@
 </script>
 
 <div>
-    {#if userPreferences}
+    <!-- {#if userPreferences} -->
         <Panel title="User Preferences">
             <p class="text-gray-500">
                 Modify your user preferences here. Remember to save!
@@ -93,7 +92,7 @@
                     <span class="label-text">First Name</span>
                 </label>
                 <input
-                    bind:value={userPreferences.firstName}
+                    value={userPreferences.firstName}
                     disabled={loading}
                     type="text"
                     placeholder="Type here"
@@ -105,7 +104,7 @@
                     <span class="label-text">Last Name</span>
                 </label>
                 <input
-                    bind:value={userPreferences.lastName}
+                    value={userPreferences.lastName}
                     disabled={loading}
                     type="text"
                     placeholder="Type here"
@@ -118,5 +117,5 @@
                 >
             </div>
         </Panel>
-    {/if}
+    <!-- {/if} -->
 </div>

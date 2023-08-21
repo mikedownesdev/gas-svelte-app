@@ -42,7 +42,7 @@
 
   /** @type {User | undefined} */
   let user = undefined;
-  $: userIsAdmin = $sessionUser.roles?.includes('admin')
+  $: userIsAdmin = $sessionUser?.roles?.includes('admin')
 
   let isDrawerOpen = false;
   const toggleDrawer = () => {
