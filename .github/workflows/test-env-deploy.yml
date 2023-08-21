@@ -6,7 +6,7 @@ on:
     branches: [test]
 
 jobs:
-  deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,20 +42,26 @@ jobs:
           repository: ${{ github.repository }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
-      - name: Checkout repo
-        id: checkout-repo
-        if: ${{github.event_name	!= 'schedule' }}
-        uses: actions/checkout@v2
-
       - name: Set scriptId in .clasp.json file
         id: set-script-id
         run: jq '.scriptId = "${{env.TEST_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           TEST_SCRIPT_ID: ${{secrets.TEST_SCRIPT_ID}}
 
+      - name: Checkout repo
+        uses: actions/checkout@v3
+  
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Build project
+        run: npm run build
+
       - name: Push script to scripts.google.com
         id: clasp-push
-        if: ${{ github.event_name	!= 'schedule'}}
         run: clasp push -f
 
       - name: Deploy Script
