@@ -11,17 +11,17 @@ export default defineConfig({
     svelte(),
     viteSingleFile(),
 
-    // Delete the dist/server directory before each build
-    del({ targets: 'dist/server/*' }),
+    // Delete the dist/ directory before each build
+    del({ targets: 'dist/*' }),
     copy({
       targets: [
-        { src: 'src/server', dest: 'dist' }
-      ],
-      flatten: false,
+        { src: 'src/appsscript.json', dest: 'dist' },
+      ]
     }),
     copy({
       targets: [
-        { src: 'src/types', dest: 'dist' }
+        { src: 'src/types', dest: 'dist' },
+        { src: 'src/server', dest: 'dist' }
       ],
       flatten: false,
     }),

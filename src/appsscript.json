@@ -1,0 +1,18 @@
+{
+    "timeZone": "America/New_York",
+    "dependencies": {
+        "enabledAdvancedServices": [
+            {
+                "userSymbol": "People",
+                "version": "v1",
+                "serviceId": "peopleapi"
+            }
+        ]
+    },
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "webapp": {
+        "executeAs": "USER_DEPLOYING",
+        "access": "ANYONE"
+    }
+}
