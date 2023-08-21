@@ -1,8 +1,16 @@
 <script>
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
+    import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
+    import { isLoading } from "../stores";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
-    var userPreferences = undefined;
+    /** @type {boolean} */
+    let loading = false;
+
+    /** @type {UserPreferences | undefined} */
+    export let userPreferences = undefined;
 
     async function handleClick() {
         // Function to be triggered when the button is clicked
@@ -11,67 +19,71 @@
         try {
             let preferencesObject = {
                 firstName: userPreferences.firstName,
-                lastName: userPreferences.lastName
+                lastName: userPreferences.lastName,
             };
             userPreferences = await submitUserPreferences(preferencesObject);
         } catch (err) {
-            console.error('handleClick completed with error', err);
+            console.error("handleClick completed with error", err);
         }
     }
 
     async function submitUserPreferences(preferencesObject) {
-        loading = true;
+        isLoading.set(true);
 
-        console.log('submitting user preferences...', preferencesObject)
-        
-        runGas('setUserPreferences', [preferencesObject])
+        console.log("submitting user preferences...", preferencesObject);
+
+        runGas("setUserPreferences", [preferencesObject])
             .then((result) => {
                 userPreferences = result;
-                console.log('User preferences:', userPreferences);
+                console.log("User preferences:", userPreferences);
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: 'success',
+                    message: 'User preferences saved!',
+                    milliseconds: 3000,
+                })
             })
             .catch((err) => {
-                console.error('Error submitting user preferences', err);
+                console.error("Error submitting user preferences", err);
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: 'error',
+                    message: 'Your preferences could not be saved.',
+                    milliseconds: 3000,
+                })
             })
             .finally(() => {
-                console.log('User preferences submitted.');
-                loading = false;
+                isLoading.set(false)
             });
     }
 
     async function fetchUserPreferences() {
-        loading = true;
-        
-        console.log('fetching user preferences...')
-        
-        runGas('getUserPreferences')
+        isLoading.set(true)
+
+        console.log("fetching user preferences...");
+
+        runGas("getUserPreferences")
             .then((result) => {
                 userPreferences = result;
-                console.log('User preferences:', userPreferences);
+                console.log("User preferences:", userPreferences);
             })
             .catch((err) => {
-                console.error('Could not get user preferences:', err);
+                console.error("Could not get user preferences:", err);
             })
             .finally(() => {
-                console.log('User preferences loaded.');
-                loading = false;
+                console.log("User preferences loaded.");
+                isLoading.set(false)
             });
     }
 
-    
-    let loading = true;
-    console.log('loading', loading)
-    fetchUserPreferences();
-    
+    if (!userPreferences) {
+        fetchUserPreferences();
+    }
 </script>
 
 <div>
-    <div class="card bg-base-300 shadow-xl">
-        {#if loading}
-            <LoadingSpinner />
-        {/if}
-        {#if userPreferences}
-        <div class="card-body">
-            <h2 class="card-title">User Preferences for {userPreferences?.firstName} {userPreferences?.lastName}</h2>
+    {#if userPreferences}
+        <Panel title="User Preferences">
             <p class="text-gray-500">
                 Modify your user preferences here. Remember to save!
             </p>
@@ -102,9 +114,9 @@
             </div>
             <div class="card-actions justify-end">
                 <button on:click={handleClick} class="btn btn-primary"
-                    >Save</button>
+                    >Save</button
+                >
             </div>
-        </div>
-        {/if}
-    </div>
+        </Panel>
+    {/if}
 </div>

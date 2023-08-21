@@ -28,3 +28,6 @@ dist-ssr
 
 # Environment variables
 .env
+
+# temporarily adding to ignore image assets
+images/

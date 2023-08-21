@@ -19,7 +19,7 @@ function getViewData(viewId) {
   let response = {
     source: "gas",
     configuration: viewConfiguration,
-    queryResult: queryResult
+    queryResult: queryResult,
   };
 
   return response;

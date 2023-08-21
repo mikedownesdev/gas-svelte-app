@@ -9,19 +9,10 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="shortcut icon" href="https://www.gstatic.com/script/favicon.ico" type="image/x-icon" />
     <!-- /STYLES -->
-    <title>My App</title>
+    <title id="app-title"></title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-    <script type="module">
-      import { navigate } from "svelte-routing";
-      // This is necessary to load the homepage when the app is deployed to Google Apps Script
-      if (window.location.pathname !== '/') {
-        // window.location.pathname = '/'
-        console.log('navigating to home')
-        navigate('/', { replace: true })
-      }
-    </script>
   </body>
 </html>

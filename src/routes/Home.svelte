@@ -1,5 +1,24 @@
+<script>
+  import { sessionUser } from "../stores";
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  function handleClick() {
+
+    const toast = {
+      id: Date.now(),
+      alertType: 'info',
+      message: 'Hello, world!',
+      milliseconds: 2000
+    };
+
+    dispatch("newToast", toast)
+  }
+
+</script>
+
 <div>
-  <h1>Welcome Back, //USER//</h1>
+  <h1>Welcome Back, {$sessionUser?.preferences?.firstName}</h1>
 
   <div class="flex flex-wrap gap-4 justify-center">
     <div class="stats shadow">
@@ -47,7 +66,7 @@
         <div class="stat-figure text-secondary">
           <div class="avatar online">
             <div class="w-16 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src={$sessionUser?.profileImgUrl} />
             </div>
           </div>
         </div>
@@ -65,7 +84,7 @@
         <h2 class="card-title">Card</h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
+          <button on:click={handleClick} class="btn btn-primary">Buy Now</button>
         </div>
       </div>
     </div>
