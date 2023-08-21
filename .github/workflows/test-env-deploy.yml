@@ -19,6 +19,10 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
+      - name: Install clasp
+        id: install-clasp
+        run: sudo npm install @google/clasp@2.4.1 -g
+
       - name: Write CLASPRC_JSON secret to .clasprc.json file
         id: write-clasprc
         run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json

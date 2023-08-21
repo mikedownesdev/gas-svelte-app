@@ -22,7 +22,6 @@
     "build:push:prod": "npm run set-env-prod && npm run build:push"
   },
   "devDependencies": {
-    "@google/clasp": "^2.4.2",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.9",
