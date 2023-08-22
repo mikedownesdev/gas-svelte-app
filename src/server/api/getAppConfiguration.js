@@ -7,7 +7,7 @@ function getAppConfiguration() {
   /** @type {AppConfiguration} */
   const appConfigurationObject = loadAppConfiguration_();
 
-  console.log(appConfigurationObject)
+  console.log(appConfigurationObject);
 
   // Do we want to filter the appConfig based on user?
 

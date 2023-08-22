@@ -22,8 +22,11 @@ function loadPreferencesForUser_(email) {
   let userPreferencesString = scriptProperties.userPreferences;
 
   if (!userPreferencesString) {
-    const defaultUserPreferences = {}
-    scriptPropertiesService.setProperty("userPreferences", JSON.stringify(defaultUserPreferences))
+    const defaultUserPreferences = {};
+    scriptPropertiesService.setProperty(
+      "userPreferences",
+      JSON.stringify(defaultUserPreferences)
+    );
     userPreferencesString = JSON.stringify(defaultUserPreferences);
   }
 
@@ -36,12 +39,14 @@ function loadPreferencesForUser_(email) {
       [email]: { firstName: "", lastName: "" },
     };
 
-    scriptPropertiesService.setProperty("userPreferences",  JSON.stringify(userPreferences))
+    scriptPropertiesService.setProperty(
+      "userPreferences",
+      JSON.stringify(userPreferences)
+    );
   }
 
   return userPreferences;
 }
-
 
 // function useScriptProperty(key) {
 //   const propertiesService = PropertiesService.getScriptProperties();

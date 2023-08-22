@@ -30,7 +30,7 @@ async function getUser() {
     const appConfiguration = getAppConfiguration();
 
     if (!appConfiguration) {
-      return {}
+      return {};
     }
 
     if (SESSION_ACTIVE_USER_EMAIL === Session.getEffectiveUser().getEmail()) {
