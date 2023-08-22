@@ -1,8 +1,9 @@
 <script>
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
+    import Panel from "../components/Panel.svelte";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
-    
+
     /** @type {string} id - comes from URL params */
     export let id;
 
@@ -20,53 +21,51 @@
      * @param {string} id
      */
     async function fetchViewData(id) {
-        isLoading.set(true)
-        
-        console.log('fetching view data...')
-        
-        runGas('getViewData', [id])
+        isLoading.set(true);
+
+        console.log("fetching view data...");
+
+        runGas("getViewData", [id])
             .then((result) => {
                 viewData = result;
-                console.log('View data:', viewData);
+                console.log("View data:", viewData);
             })
             .catch((err) => {
-                console.error('Could not get view data:', err);
+                console.error("Could not get view data:", err);
             })
             .finally(() => {
-                console.log('View data loaded.');
-                isLoading.set(false)
+                console.log("View data loaded.");
+                isLoading.set(false);
             });
     }
 </script>
 
-<h1>View #{id}</h1>
-{#if loading}
-    <LoadingSpinner />
-{/if}
-{#if viewData}
-<div class="overflow-x-auto">
-    <table class="table">
-        <!-- head -->
-        <thead>
-            <tr>
-                <th />
-                {#each viewData.configuration.fields as field}
-                <th id="#field-{field.name}">{field.label}</th>
+<Panel title={`View #${id}`}>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th />
+                    {#if viewData}
+                    {#each viewData.configuration.fields as field}
+                        <th id="#field-{field.name}">{field.label}</th>
+                    {/each}
+                    {/if}
+                </tr>
+            </thead>
+            <tbody>
+                {#if viewData}
+                {#each viewData?.queryResult.records as record}
+                    <tr>
+                        <th>X</th>
+                        {#each viewData?.configuration.fields as field}
+                            <td>{record[field.name]}</td>
+                        {/each}
+                    </tr>
                 {/each}
-            </tr>
-        </thead>
-        <tbody>
-            
-            {#each viewData.queryResult.records as record}
-            <tr>
-                <th>X</th>
-                {#each viewData.configuration.fields as field}
-                <td>{record[field.name]}</td>
-                {/each}
-            </tr>
-            {/each}
-            
-        </tbody>
-    </table>
-</div>
-{/if}
+                {/if}
+            </tbody>
+        </table>
+    </div>
+</Panel>

@@ -12,7 +12,7 @@
   import Toaster from "./components/Toaster.svelte";
   import runGas from "./lib/runGas";
   import { onMount } from "svelte";
-  import { sessionUser } from "./stores";
+  import { sessionUser, isLoading } from "./stores";
 
   // Used for SSR. A falsy value is ignored by the Router.
   export let url = "";
