@@ -4,7 +4,7 @@
     import { sessionUser } from '../stores';
     
 
-    $: isAuthenticated = $sessionUser?.roles.includes('admin');
+    $: isAuthenticated = $sessionUser?.roles?.includes('admin');
     console.log(isAuthenticated)
 
     export let path;

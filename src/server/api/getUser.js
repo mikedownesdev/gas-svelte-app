@@ -29,6 +29,10 @@ async function getUser() {
     var roles = [];
     const appConfiguration = getAppConfiguration();
 
+    if (!appConfiguration) {
+      return {}
+    }
+
     if (SESSION_ACTIVE_USER_EMAIL === Session.getEffectiveUser().getEmail()) {
       roles.push("superAdmin");
     }

@@ -1,6 +1,5 @@
 import isJest from "../isJest";
 import { viewConfigurations } from "./viewConfigurations";
-import { dataSourceConfigurations } from "./dataSourceConfigurations";
 import { user, users } from "./user";
 import { appConfiguration } from "./appConfiguration";
 import { mockData } from "./mockData";
@@ -27,6 +26,15 @@ const query = (viewConfiguration) => {
 
 export default function getMocks(resolve) {
   return {
+    /*========* App Configuration API *========*/
+    async initializeApp() {
+      await sleep(2000);
+
+      let mockResponse = { success: true };
+
+      resolve(JSON.parse(JSON.stringify(mockResponse)));
+    },
+
     /*========* App Configuration API *========*/
 
     async getAppConfiguration() {
