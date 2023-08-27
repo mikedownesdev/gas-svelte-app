@@ -5,9 +5,6 @@
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 
-    /** @type {boolean} */
-    let loading = false;
-
     /** @type {UserPreferences | undefined} */
     export let userPreferences = { firstName: "test", lastName: "test" };
 
@@ -37,27 +34,27 @@
                 console.log("User preferences:", userPreferences);
                 dispatch("newToast", {
                     id: Date.now(),
-                    alertType: 'success',
-                    message: 'User preferences saved!',
+                    alertType: "success",
+                    message: "User preferences saved!",
                     milliseconds: 3000,
-                })
+                });
             })
             .catch((err) => {
                 console.error("Error submitting user preferences", err);
                 dispatch("newToast", {
                     id: Date.now(),
-                    alertType: 'error',
-                    message: 'Your preferences could not be saved.',
+                    alertType: "error",
+                    message: "Your preferences could not be saved.",
                     milliseconds: 3000,
-                })
+                });
             })
             .finally(() => {
-                isLoading.set(false)
+                isLoading.set(false);
             });
     }
 
     async function fetchUserPreferences() {
-        isLoading.set(true)
+        isLoading.set(true);
 
         console.log("fetching user preferences...");
 
@@ -71,7 +68,7 @@
             })
             .finally(() => {
                 console.log("User preferences loaded.");
-                isLoading.set(false)
+                isLoading.set(false);
             });
     }
 
@@ -82,18 +79,21 @@
 
 <div>
     <!-- {#if userPreferences} -->
-        <Panel title="User Preferences">
-            <p class="text-gray-500">
-                Modify your user preferences here. Remember to save!
-            </p>
-            <div class="divider" />
+    <Panel title="User Preferences">
+        <button on:click={handleClick} slot="button" class="btn btn-primary"
+            >Save</button
+        >
+        <p class="text-gray-500" slot="description">
+            Modify your user preferences here. Remember to save!
+        </p>
+        <div slot="panel-content">
             <div class="form-control w-full max-w-xs">
                 <label class="label">
                     <span class="label-text">First Name</span>
                 </label>
                 <input
                     value={userPreferences.firstName}
-                    disabled={loading}
+                    disabled={$isLoading}
                     type="text"
                     placeholder="Type here"
                     class="input input-bordered w-full max-w-xs"
@@ -105,17 +105,14 @@
                 </label>
                 <input
                     value={userPreferences.lastName}
-                    disabled={loading}
+                    disabled={$isLoading}
                     type="text"
                     placeholder="Type here"
                     class="input input-bordered w-full max-w-xs"
                 />
             </div>
-            <div class="card-actions justify-end">
-                <button on:click={handleClick} class="btn btn-primary"
-                    >Save</button
-                >
-            </div>
-        </Panel>
+        </div>
+        <div class="card-actions justify-end" />
+    </Panel>
     <!-- {/if} -->
 </div>

@@ -1,6 +1,7 @@
 <script>
     /** @type {string} */
     export let id;
+    export let title = "";
 </script>
 
 <dialog {id} class="modal modal-bottom sm:modal-middle">
@@ -8,11 +9,11 @@
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             >✕</button
         >
-        <h3 class="font-bold text-lg">Hello!</h3>
-        <p class="py-4">Press ESC key or click the button below to close</p>
+        <h3 class="font-bold text-lg">{title}</h3>
+        <slot name="modal-content"/>
         <div class="modal-action">
             <!-- if there is a button in form, it will close the modal -->
-            <button class="btn">This closes</button>
+            <slot name="modal-action" />
         </div>
     </form>
     <form method="dialog" class="modal-backdrop">
