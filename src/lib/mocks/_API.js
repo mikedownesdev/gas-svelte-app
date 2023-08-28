@@ -85,12 +85,12 @@ export default function getMocks(resolve) {
 
       /** @type {ViewConfiguration} */
       let mockResponse = viewConfigurations.find((config) => config.id === id);
-      
+
       return JSON.parse(JSON.stringify(mockResponse));
     },
     /*========* View Data API *========*/
     /**
-     * 
+     *
      * @param {GetViewDataArgs} args
      * @returns {Promise<View>}
      */
@@ -124,7 +124,7 @@ export default function getMocks(resolve) {
      * @param {GetUserArgs} args
      * @returns {Promise<User>}
      */
-    async getUser({email}) {
+    async getUser({ email }) {
       await sleep(1000);
 
       /** @type {User | undefined} */

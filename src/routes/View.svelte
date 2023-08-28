@@ -1,6 +1,7 @@
 <script>
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
+    import { GAS_API } from "../lib/GAS_API";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
 
@@ -25,7 +26,7 @@
 
         console.log("fetching view data...");
 
-        runGas("getViewData", [id])
+        GAS_API.getViewData({id})
             .then((result) => {
                 viewData = result;
                 console.log("View data:", viewData);
@@ -41,7 +42,7 @@
 </script>
 
 <Panel title={`View #${id}`}>
-    <div class="overflow-x-auto">
+    <div slot="panel-content" class="overflow-x-auto">
         <table class="table">
             <!-- head -->
             <thead>
