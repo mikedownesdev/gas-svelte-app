@@ -1,4 +1,5 @@
 /**
+ * **API Endpoint** | Returns the accessing users preferences
  * @returns {UserPreferences | Object}
  */
 function getUserPreferences() {

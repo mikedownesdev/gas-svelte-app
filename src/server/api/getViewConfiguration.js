@@ -1,9 +1,14 @@
 /**
- * @param {string} viewId
- * @returns {ViewConfiguration | undefined}
+ * @typedef {Object} GetViewConfigArgs
+ * @property {string} id
  */
-function getViewConfiguration(viewId) {
-  console.log("getting view configuration for viewId:", viewId);
+/**
+ * **API Endpoint** | Returns the accessing users preferences
+ * @param {GetViewConfigArgs} args
+ * @returns {ViewConfiguration}
+ */
+function getViewConfiguration({ id }) {
+  console.log("getting view configuration for viewId:", id);
   // Check user identity for permissions to view this configuration
 
   //
@@ -19,7 +24,8 @@ function getViewConfiguration(viewId) {
   const appConfigurationObject = JSON.parse(appConfigurationString);
 
   const viewConfiguration = appConfigurationObject.viewConfigurations.find(
-    (config) => config.id === viewId
+    (config) => config.id === id
   );
+
   return viewConfiguration;
 }

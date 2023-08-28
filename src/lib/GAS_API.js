@@ -5,32 +5,46 @@
  * @returns {Promise<any>}
  */
 const callAPI = async (functionName, args = []) => {
-    return new Promise((resolve, reject) => {
-      google.script.run
-        .withSuccessHandler(resolve)
-        .withFailureHandler(reject)
-        [functionName](...args);
-    });
-  };
-  
+  return new Promise((resolve, reject) => {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(reject)
+      [functionName](...args);
+  });
+};
+
+export const GAS_API = {
   /**
-   * @typedef {Object} GAS_API_Functions
-   * @property {function({ id: string }): Promise<any>} getViewData
-   * @property {function(): Promise<any>} getAppConfiguration
+   * @returns {Promise<AppConfiguration>} the app configuration
    */
-  
-  /** @type {GAS_API_Functions} */
-  export const GAS_API = {
-    /**
-     * @param {{ id: string }} args
-     * @returns {Promise<any>}
-     */
-    getViewData: (args) => callAPI('getViewData', [args.id]),
-  
-    /**
-     * @returns {Promise<any>}
-     */
-    getAppConfiguration: () => callAPI('getAppConfiguration'),
-    // Add more methods here
-  };
-  
+  getAppConfiguration: () => callAPI("getAppConfiguration"),
+
+  /**
+   * @returns {Promise<User>}
+   */
+  getUser: () => callAPI("getUser"),
+
+  /**
+   * @returns {Promise<UserPreferences>}
+   */
+  getUserPreferences: () => callAPI("getUserPreferences"),
+
+  /**
+   * @param {GetViewConfigArgs} args
+   * @returns {Promise<ViewConfiguration>}
+   */
+  getViewConfiguration: (args) => callAPI("getViewConfiguration", [args]),
+
+  /**
+   * @param {GetViewDataArgs} args
+   * @returns {Promise<View>}
+   */
+  getViewData: (args) => callAPI("getViewData", [args]),
+
+  /**
+   *
+   * @param {SetUserPreferencesArgs} args
+   * @returns {Promise<UserPreferences>} the updated user preferences
+   */
+  setUserPreferences: (args) => callAPI("setUserPreferences", [args]),
+};

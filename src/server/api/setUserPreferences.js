@@ -1,4 +1,9 @@
 /**
+ * @typedef {Object} SetUserPreferencesArgs
+ * @property {UserPreferences} preferencesObject
+ */
+/**
+ * **API Endpoint** | Updates the user preferences for the accessing user
  * @param {UserPreferences} preferencesObject
  * @returns {UserPreferences}
  */

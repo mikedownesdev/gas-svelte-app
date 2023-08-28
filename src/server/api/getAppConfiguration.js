@@ -1,4 +1,5 @@
 /**
+ * **API Endpoint** | Returns the app configuration
  * @returns {AppConfiguration | null}
  */
 function getAppConfiguration() {

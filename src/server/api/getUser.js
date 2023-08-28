@@ -1,22 +1,7 @@
-function getUserPictureUrl(email) {
-  let userPictureUrl;
-  let defaultPictureUrl =
-    "https://lh3.googleusercontent.com/a-/AOh14Gj-cdUSUVoEge7rD5a063tQkyTDT3mripEuDZ0v=s100";
-  try {
-    let people = People.People.searchDirectoryPeople({
-      query: email,
-      readMask: "photos",
-      sources: "DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE",
-    });
-
-    userPictureUrl = people.people[0].photos[0].url;
-  } catch (err) {
-    console.log(err);
-  }
-
-  return userPictureUrl ?? defaultPictureUrl;
-}
-
+/**
+ * **API Endpoint** | Returns the accessing user object
+ * @returns {Promise<User>}
+ */
 async function getUser() {
   // const userPreferences = await getUserPreferences();
 
@@ -84,4 +69,23 @@ async function getUser() {
 
   console.log(user);
   return user;
+}
+
+function getUserPictureUrl(email) {
+  let userPictureUrl;
+  let defaultPictureUrl =
+    "https://lh3.googleusercontent.com/a-/AOh14Gj-cdUSUVoEge7rD5a063tQkyTDT3mripEuDZ0v=s100";
+  try {
+    let people = People.People.searchDirectoryPeople({
+      query: email,
+      readMask: "photos",
+      sources: "DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE",
+    });
+
+    userPictureUrl = people.people[0].photos[0].url;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return userPictureUrl ?? defaultPictureUrl;
 }

@@ -1,9 +1,14 @@
 /**
- * @param {string} viewId
+ * @typedef {Object} GetViewDataArgs
+ * @property {string} id
+ */
+/**
+ * **API Endpoint** | Returns the data for the view with the provided id
+ * @param {GetViewDataArgs} args
  * @returns {View}
  */
-function getViewData(viewId) {
-  const viewConfiguration = getViewConfiguration(viewId);
+function getViewData({ id }) {
+  const viewConfiguration = getViewConfiguration({ id });
 
   if (!viewConfiguration) {
     throw new Error("View configuration not found");

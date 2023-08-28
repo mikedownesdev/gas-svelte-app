@@ -67,11 +67,9 @@ export default function getMocks(resolve) {
 
     /*========* View Configuration API *========*/
 
-    getViewConfiguration(viewId) {
-      console.log("getting view configuration for viewId:", viewId);
-      let mockResponse = viewConfigurations.find(
-        (config) => config.id === viewId
-      );
+    getViewConfiguration({ id }) {
+      console.log("getting view configuration for viewId:", id);
+      let mockResponse = viewConfigurations.find((config) => config.id === id);
       return JSON.parse(JSON.stringify(mockResponse));
     },
 
@@ -92,9 +90,9 @@ export default function getMocks(resolve) {
 
     /*========* View Data API *========*/
 
-    async getViewData(viewId) {
-      console.log("getting view data for viewId:", viewId);
-      const viewConfiguration = await this.getViewConfiguration(viewId);
+    async getViewData({ id }) {
+      console.log("getting view data for viewId:", id);
+      const viewConfiguration = await this.getViewConfiguration({ id });
 
       if (!viewConfiguration) {
         throw new Error("View configuration not found");
