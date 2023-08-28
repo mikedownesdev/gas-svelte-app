@@ -13,6 +13,7 @@
   import runGas from "./lib/runGas";
   import { onMount } from "svelte";
   import { sessionUser, isLoading } from "./stores";
+    import { GAS_API } from "./lib/GAS_API";
 
   /**
    *
@@ -83,7 +84,7 @@
 
     console.log("fetching app configuration...");
 
-    runGas("getAppConfiguration")
+    GAS_API.getAppConfiguration()
       .then((result) => {
         appConfiguration = result;
         console.log("App configuration:", appConfiguration);
