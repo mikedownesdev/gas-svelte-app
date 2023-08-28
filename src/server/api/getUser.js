@@ -1,8 +1,12 @@
 /**
+ * @typedef {Object} GetUserArgs
+ * @property {string} email
+ */
+/**
  * **API Endpoint** | Returns the accessing user object
  * @returns {Promise<User>}
  */
-async function getUser() {
+async function getUser({email}) {
   // const userPreferences = await getUserPreferences();
 
   const SESSION_ACTIVE_USER_EMAIL = Session.getActiveUser().getEmail();

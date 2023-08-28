@@ -28,7 +28,7 @@ export default function getMocks(resolve) {
   return {
     /*========* App Configuration API *========*/
     async initializeApp() {
-      await sleep(2000);
+      await sleep();
 
       let mockResponse = { success: true };
 
@@ -36,60 +36,64 @@ export default function getMocks(resolve) {
     },
 
     /*========* App Configuration API *========*/
-
+    /**
+     * @returns {Promise<AppConfiguration>} the app configuration
+     */
     async getAppConfiguration() {
-      await sleep(2000);
+      await sleep();
 
       /** @type {AppConfiguration} */
       let mockResponse = appConfiguration;
 
-      resolve(JSON.parse(JSON.stringify(mockResponse)));
+      return JSON.parse(JSON.stringify(mockResponse));
     },
 
     /*========* User Preferences API *========*/
-
+    /**
+     * @returns {Promise<UserPreferences>}
+     */
     async getUserPreferences() {
-      await sleep(1500);
+      await sleep();
 
       /** @type {UserPreferences} */
       let mockResponse = user.preferences;
-      resolve(JSON.parse(JSON.stringify(mockResponse)));
+
+      return JSON.parse(JSON.stringify(mockResponse));
     },
 
-    async setUserPreferences(preferencesObject) {
-      await sleep(2000);
-      console.log("Saved preferences " + Array.from(arguments).toString());
+    /**
+     * @param {SetUserPreferencesArgs} args
+     * @returns {Promise<UserPreferences>}
+     */
+    async setUserPreferences({ preferencesObject }) {
+      await sleep();
 
       /** @type {UserPreferences} */
       let mockResponse = preferencesObject;
-      resolve(JSON.parse(JSON.stringify(mockResponse)));
+
+      return JSON.parse(JSON.stringify(mockResponse));
     },
 
     /*========* View Configuration API *========*/
-
-    getViewConfiguration({ id }) {
+    /**
+     * @param {GetViewConfigArgs} args
+     * @returns {Promise<ViewConfiguration>}
+     */
+    async getViewConfiguration({ id }) {
       console.log("getting view configuration for viewId:", id);
+      await sleep();
+
+      /** @type {ViewConfiguration} */
       let mockResponse = viewConfigurations.find((config) => config.id === id);
+      
       return JSON.parse(JSON.stringify(mockResponse));
     },
-
-    async postViewConfiguration(viewConfiguration) {
-      console.log("posting view configuration:", viewConfiguration);
-      await sleep(2000);
-      let mockResponse = viewConfiguration;
-      return JSON.parse(JSON.stringify(mockResponse));
-    },
-
-    putViewConfiguration(viewConfiguration) {
-      return true;
-    },
-
-    deleteViewConfiguration(viewId) {
-      return true;
-    },
-
     /*========* View Data API *========*/
-
+    /**
+     * 
+     * @param {GetViewDataArgs} args
+     * @returns {Promise<View>}
+     */
     async getViewData({ id }) {
       console.log("getting view data for viewId:", id);
       const viewConfiguration = await this.getViewConfiguration({ id });
@@ -112,11 +116,15 @@ export default function getMocks(resolve) {
         },
       };
 
-      resolve(JSON.parse(JSON.stringify(mockResponse)));
+      return JSON.parse(JSON.stringify(mockResponse));
     },
 
     /*========* Users API *========*/
-    async getUser(email) {
+    /**
+     * @param {GetUserArgs} args
+     * @returns {Promise<User>}
+     */
+    async getUser({email}) {
       await sleep(1000);
 
       /** @type {User | undefined} */
@@ -128,9 +136,9 @@ export default function getMocks(resolve) {
         mockResponse = users.find((user) => user.email === email);
       }
 
-      console.log("mockRsponse", mockResponse);
+      console.log("mockResponse", mockResponse);
 
-      resolve(JSON.parse(JSON.stringify(mockResponse)));
+      return JSON.parse(JSON.stringify(mockResponse));
     },
   };
 }
