@@ -5,6 +5,7 @@
     import Panel from "../components/Panel.svelte";
     import { isLoading } from "../stores";
     import Modal from "../components/Modal.svelte";
+    import { GAS_API } from "../lib/GAS_API";
 
     /** @type {AppConfiguration} */
     export let appConfiguration;
@@ -14,19 +15,20 @@
     function handleNewAdmin() {
         // TODO: validate input
         console.log("submitting new admin", newAdmin);
-        isLoading.set(true);
-        runGas("addAdmin", { email: newAdmin })
-            .then((result) => {
-                console.log("New admin added:", result);
-                newAdmin = "";
-            })
-            .catch((err) => {
-                console.error("Could not add new admin:", err);
-            })
-            .finally(() => {
-                console.log("New admin added.");
-                isLoading.set(false);
-            });
+        // isLoading.set(true);
+
+        // GAS_API.addAdmin({ email: newAdmin })
+        //     .then((result) => {
+        //         console.log("New admin added:", result);
+        //         newAdmin = "";
+        //     })
+        //     .catch((err) => {
+        //         console.error("Could not add new admin:", err);
+        //     })
+        //     .finally(() => {
+        //         console.log("New admin added.");
+        //         isLoading.set(false);
+        //     });
     }
 
     /**
@@ -37,7 +39,7 @@
 
         console.log("fetching app configuration...");
 
-        runGas("getAppConfiguration")
+        GAS_API.getAppConfiguration()
             .then((result) => {
                 appConfiguration = result;
                 console.log("App configuration:", appConfiguration);

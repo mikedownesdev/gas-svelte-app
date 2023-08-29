@@ -4,16 +4,15 @@
  */
 /**
  * **API Endpoint** | Returns the accessing user object
+ * @param {GetUserArgs} [optionalArgs] - Optional parameter containing user email
  * @returns {Promise<User>}
  */
-async function getUser({ email }) {
-  // const userPreferences = await getUserPreferences();
-
-  const SESSION_ACTIVE_USER_EMAIL = Session.getActiveUser().getEmail();
+async function getUser({ email } = { email: undefined }) {
+  let USER_EMAIL_FOR_RETREIVAL = email || Session.getActiveUser().getEmail();
 
   // Thread 1
   async function loadUserInfo() {
-    const email = SESSION_ACTIVE_USER_EMAIL;
+    const email = USER_EMAIL_FOR_RETREIVAL;
 
     var roles = [];
     const appConfiguration = getAppConfiguration();
@@ -22,7 +21,7 @@ async function getUser({ email }) {
       return {};
     }
 
-    if (SESSION_ACTIVE_USER_EMAIL === Session.getEffectiveUser().getEmail()) {
+    if (email === Session.getEffectiveUser().getEmail()) {
       roles.push("superAdmin");
     }
     if (

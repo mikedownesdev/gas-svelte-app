@@ -1,6 +1,7 @@
 <script>
     import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
+    import { GAS_API } from "../lib/GAS_API";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
 
@@ -25,16 +26,16 @@
 
         console.log("fetching user data for profile...");
 
-        runGas("getUser", [email])
+        GAS_API.getUser({ email })
             .then((result) => {
                 user = result;
-                console.log("Profile data:", user);
+                console.log("User data:", user);
             })
             .catch((err) => {
-                console.error("Could not get user profile", err);
+                console.error("Could not get user data:", err);
             })
             .finally(() => {
-                console.log("User profile loaded.");
+                console.log("User data loaded.");
                 isLoading.set(false)
             });
     }

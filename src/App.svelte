@@ -10,10 +10,9 @@
   import Profile from "./routes/Profile.svelte";
   import HeaderBar from "./components/HeaderBar.svelte";
   import Toaster from "./components/Toaster.svelte";
-  import runGas from "./lib/runGas";
   import { onMount } from "svelte";
   import { sessionUser, isLoading } from "./stores";
-    import { GAS_API } from "./lib/GAS_API";
+  import { GAS_API } from "./lib/GAS_API";
 
   /**
    *
@@ -62,8 +61,10 @@
 
     console.log("fetching user...");
 
-    runGas("getUser")
+
+    GAS_API.getUser()
       .then((result) => {
+        console.log('hello')
         sessionUser.set(result);
         console.log("User:", result);
       })

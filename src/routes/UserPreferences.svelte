@@ -1,5 +1,6 @@
 <script>
     import Panel from "../components/Panel.svelte";
+    import { GAS_API } from "../lib/GAS_API";
     import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
     import { createEventDispatcher } from "svelte";
@@ -28,7 +29,7 @@
 
         console.log("submitting user preferences...", preferencesObject);
 
-        runGas("setUserPreferences", [preferencesObject])
+        GAS_API.setUserPreferences({ preferencesObject })
             .then((result) => {
                 userPreferences = result;
                 console.log("User preferences:", userPreferences);
@@ -58,7 +59,7 @@
 
         console.log("fetching user preferences...");
 
-        runGas("getUserPreferences")
+        GAS_API.getUserPreferences()
             .then((result) => {
                 userPreferences = result;
                 console.log("User preferences:", userPreferences);

@@ -1,3 +1,6 @@
+import polyfillScriptRun from "./polyfillScriptRun";
+polyfillScriptRun();
+
 /**
  * Generic function to handle API calls
  * @param {string} functionName
@@ -20,9 +23,10 @@ export const GAS_API = {
   getAppConfiguration: () => callAPI("getAppConfiguration"),
 
   /**
+   * @param {GetUserArgs} [args] - Optional parameter containing user email
    * @returns {Promise<User>}
    */
-  getUser: () => callAPI("getUser"),
+  getUser: (args) => callAPI("getUser", [args]),
 
   /**
    * @returns {Promise<UserPreferences>}
