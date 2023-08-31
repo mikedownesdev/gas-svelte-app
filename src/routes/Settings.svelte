@@ -17,6 +17,23 @@
         console.log("submitting new admin", newAdmin);
         // isLoading.set(true);
 
+        appConfiguration.admins.push(newAdmin);
+
+        console.log('sending app configuration to server...', {appConfiguration});
+
+        GAS_API.putAppConfiguration({appConfiguration})
+            .then((result) => {
+                console.log("App configuration updated:", result);
+                newAdmin = "";
+            })
+            .catch((err) => {
+                console.error("Could not update app configuration:", err);
+            })
+            .finally(() => {
+                console.log("App configuration updated.");
+                isLoading.set(false);
+            });
+
         // GAS_API.addAdmin({ email: newAdmin })
         //     .then((result) => {
         //         console.log("New admin added:", result);

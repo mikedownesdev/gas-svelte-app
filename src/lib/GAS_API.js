@@ -4,16 +4,35 @@ polyfillScriptRun();
 /**
  * Generic function to handle API calls
  * @param {string} functionName
- * @param {any[]} [args=[]] - Optional arguments
+ * @param {any} [args=[]] - Optional arguments
  * @returns {Promise<any>}
  */
 const callAPI = async (functionName, args = []) => {
-  return new Promise((resolve, reject) => {
-    google.script.run
-      .withSuccessHandler(resolve)
-      .withFailureHandler(reject)
+
+  console.log('calling api', functionName, args)
+
+  if (args == undefined) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
+      [functionName]();
+    });
+  } else if (Array.isArray(args)) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
       [functionName](...args);
-  });
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
+      [functionName](...[args]);
+    });
+  };
 };
 
 export const GAS_API = {
@@ -23,10 +42,16 @@ export const GAS_API = {
   getAppConfiguration: () => callAPI("getAppConfiguration"),
 
   /**
+   * @param {PutAppConfigArgs} args
+   * @returns {Promise<AppConfiguration>} the app configuration
+   */
+  putAppConfiguration: (args) => callAPI("putAppConfiguration", [args]),
+
+  /**
    * @param {GetUserArgs} [args] - Optional parameter containing user email
    * @returns {Promise<User>}
    */
-  getUser: (args) => callAPI("getUser", [args]),
+  getUser: (args) => callAPI("getUser", args),
 
   /**
    * @returns {Promise<UserPreferences>}
