@@ -8,31 +8,13 @@ polyfillScriptRun();
  * @returns {Promise<any>}
  */
 const callAPI = async (functionName, args = []) => {
-
-  console.log('calling api', functionName, args)
-
-  if (args == undefined) {
-    return new Promise((resolve, reject) => {
-      google.script.run
-        .withSuccessHandler(resolve)
-        .withFailureHandler(reject)
-      [functionName]();
-    });
-  } else if (Array.isArray(args)) {
-    return new Promise((resolve, reject) => {
-      google.script.run
-        .withSuccessHandler(resolve)
-        .withFailureHandler(reject)
-      [functionName](...args);
-    });
-  } else {
-    return new Promise((resolve, reject) => {
-      google.script.run
-        .withSuccessHandler(resolve)
-        .withFailureHandler(reject)
-      [functionName](...[args]);
-    });
-  };
+  console.log("calling api", functionName, args);
+  return new Promise((resolve, reject) => {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(reject)
+      [functionName](...(Array.isArray(args) ? args : [args]));
+  });
 };
 
 export const GAS_API = {
@@ -45,7 +27,7 @@ export const GAS_API = {
    * @param {PutAppConfigArgs} args
    * @returns {Promise<AppConfiguration>} the app configuration
    */
-  putAppConfiguration: (args) => callAPI("putAppConfiguration", [args]),
+  putAppConfiguration: (args) => callAPI("putAppConfiguration", args),
 
   /**
    * @param {GetUserArgs} [args] - Optional parameter containing user email
@@ -62,18 +44,18 @@ export const GAS_API = {
    * @param {GetViewConfigArgs} args
    * @returns {Promise<ViewConfiguration>}
    */
-  getViewConfiguration: (args) => callAPI("getViewConfiguration", [args]),
+  getViewConfiguration: (args) => callAPI("getViewConfiguration", args),
 
   /**
    * @param {GetViewDataArgs} args
    * @returns {Promise<View>}
    */
-  getViewData: (args) => callAPI("getViewData", [args]),
+  getViewData: (args) => callAPI("getViewData", args),
 
   /**
    *
    * @param {SetUserPreferencesArgs} args
    * @returns {Promise<UserPreferences>} the updated user preferences
    */
-  setUserPreferences: (args) => callAPI("setUserPreferences", [args]),
+  setUserPreferences: (args) => callAPI("setUserPreferences", args),
 };
