@@ -1,91 +1,65 @@
 <script>
     import Panel from "../components/Panel.svelte";
     import { GAS_API } from "../lib/GAS_API";
-    import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 
-    /** @type {UserPreferences | undefined} */
-    export let userPreferences = { firstName: "test", lastName: "test" };
+    /** @type {User | undefined} */
+    export let user = undefined;
+    let { profile, preferences } = user || {
+        profile: {
+            firstName: "hi",
+            lastName: "",
+        },
+        preferences: {
+            theme: "dark",
+        },
+    };
 
     async function handleClick() {
-        // Function to be triggered when the button is clicked
         console.log("Button clicked!");
-        // You can perform any other actions here
-        try {
-            let preferencesObject = {
-                firstName: userPreferences.firstName,
-                lastName: userPreferences.lastName,
-            };
-            await submitUserPreferences(preferencesObject);
-        } catch (err) {
-            console.error("handleClick completed with error", err);
-        }
+
+        let result = await submitUserUpdate(user);
     }
 
-    async function submitUserPreferences(preferencesObject) {
+    async function submitUserUpdate(user) {
         isLoading.set(true);
 
-        console.log("submitting user preferences...", preferencesObject);
+        console.log("submitting user update", user);
 
-        GAS_API.setUserPreferences({ preferencesObject })
+        GAS_API.putUser({user})
             .then((result) => {
-                userPreferences = result;
-                console.log("User preferences:", userPreferences);
+                console.log('result', result)
                 dispatch("newToast", {
                     id: Date.now(),
                     alertType: "success",
-                    message: "User preferences saved!",
+                    message: "User updated!",
                     milliseconds: 3000,
                 });
             })
             .catch((err) => {
-                console.error("Error submitting user preferences", err);
+                console.error("Error submitting user change", err);
                 dispatch("newToast", {
                     id: Date.now(),
                     alertType: "error",
-                    message: "Your preferences could not be saved.",
+                    message: "Your changes could not be saved",
                     milliseconds: 3000,
                 });
             })
             .finally(() => {
                 isLoading.set(false);
             });
-    }
-
-    async function fetchUserPreferences() {
-        isLoading.set(true);
-
-        console.log("fetching user preferences...");
-
-        GAS_API.getUserPreferences()
-            .then((result) => {
-                userPreferences = result;
-                console.log("User preferences:", userPreferences);
-            })
-            .catch((err) => {
-                console.error("Could not get user preferences:", err);
-            })
-            .finally(() => {
-                console.log("User preferences loaded.");
-                isLoading.set(false);
-            });
-    }
-
-    if (!userPreferences) {
-        fetchUserPreferences();
     }
 </script>
 
 <div>
-    <!-- {#if userPreferences} -->
-    <Panel title="User Preferences">
+    <Panel title="Profile Info">
         <button on:click={handleClick} slot="button" class="btn btn-primary"
             >Save</button
         >
         <p class="text-gray-500" slot="description">
-            Modify your user preferences here. Remember to save!
+            Information in this section is displayed on your profile page.
         </p>
         <div slot="panel-content">
             <div class="form-control w-full max-w-xs">
@@ -93,7 +67,7 @@
                     <span class="label-text">First Name</span>
                 </label>
                 <input
-                    value={userPreferences.firstName}
+                    bind:value={profile.firstName}
                     disabled={$isLoading}
                     type="text"
                     placeholder="Type here"
@@ -105,7 +79,30 @@
                     <span class="label-text">Last Name</span>
                 </label>
                 <input
-                    value={userPreferences.lastName}
+                    bind:value={profile.lastName}
+                    disabled={$isLoading}
+                    type="text"
+                    placeholder="Type here"
+                    class="input input-bordered w-full max-w-xs"
+                />
+            </div>
+        </div>
+    </Panel>
+    <!-- {#if userPreferences} -->
+    <Panel title="User Preferences">
+        <button on:click={handleClick} slot="button" class="btn btn-primary"
+            >Save</button
+        >
+        <p class="text-gray-500" slot="description">
+            Modify your user preferences here. Remember to save!
+        </p>
+        <div slot="panel-content">
+            <div class="form-control w-full max-w-xs">
+                <label class="label">
+                    <span class="label-text">Theme</span>
+                </label>
+                <input
+                    bind:value={preferences.theme}
                     disabled={$isLoading}
                     type="text"
                     placeholder="Type here"

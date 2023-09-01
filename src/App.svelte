@@ -64,7 +64,6 @@
 
     GAS_API.getUser()
       .then((result) => {
-        console.log('hello')
         sessionUser.set(result);
         console.log("User:", result);
       })
@@ -124,7 +123,7 @@
           </ProtectedRoute>
           <Route path="user-preferences">
             <UserPreferences
-              userPreferences={$sessionUser.preferences}
+              user={$sessionUser}
               on:newToast={handleNewToast}
             />
           </Route>

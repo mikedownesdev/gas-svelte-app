@@ -1,10 +1,4 @@
 /**
- * @typedef {Object} UserPreferences
- * @property {string} firstName
- * @property {string} lastName
- */
-
-/**
  * @typedef {Object} DatasourceConfiguration
  * @property {string} spreadsheetId
  * @property {string} gid
@@ -65,16 +59,24 @@
  */
 
 /**
+ * @typedef {{ [key: string]: any }} UserPreferences
+ */
+
+/**
+ * @typedef {{ imageUrl: string, [key: string]: string }} UserProfile
+ */
+
+/**
  * @typedef {Object} UserActivity
- * @property {string} firstActiveAt -- This is an ISO String representation of a timestamp.
- * @property {string} lastActiveAt -- This is an ISO String representation of a timestamp.
+ * @property {string} label -- Label for the activity
+ * @property {string} value -- This is an ISO String representation of a timestamp.
  */
 
 /**
  * @typedef {Object} User
  * @property {string} email
- * @property {string} profileImgUrl -- This is a URL to the user's profile image.
  * @property {string[]} roles
+ * @property {UserProfile} profile
  * @property {UserPreferences} preferences
- * @property {UserActivity} activity
+ * @property {UserActivity[]} activity
  */

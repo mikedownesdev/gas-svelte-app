@@ -2,43 +2,49 @@
 export const user = {
   email: "mock_mockerson@test.com",
   roles: ["superAdmin", "admin"],
-  profileImgUrl: "../../../images/man2.jpeg",
-  preferences: {
+  profile: {
     firstName: "Mock",
     lastName: "Mockerson",
+    imageUrl: "../../../images/man2.jpeg",
   },
-  activity: {
-    firstActiveAt: "2023-01-01T00:00:00.000Z",
-    lastActiveAt: new Date().toISOString(),
+  preferences: {
+    theme: "dark",
   },
+  activity: [
+    { label: "User Created", value: "2021-01-01T00:00:00.000Z" },
+    { label: "User Updated", value: "2021-01-01T00:00:00.000Z" },
+  ],
 };
 
+/** @type {User[]} */
 export const users = [
   user,
   {
     email: "johndoe",
     roles: ["admin"],
-    profileImgUrl: "../../../images/man1.jpeg",
-    preferences: {
+    profile: {
       firstName: "John",
       lastName: "Doe",
+      imageUrl: "../../../images/man1.jpeg",
     },
-    activity: {
-      firstActiveAt: "2023-01-01T00:00:00.000Z",
-      lastActiveAt: "2023-03-12T00:00:00.000Z",
-    },
+    preferences: {},
+    activity: [
+      { label: "User Created", value: "2023-01-01T00:00:00.000Z" },
+      { label: "User Updated", value: "2023-03-12T00:00:00.000Z" },
+    ],
   },
   {
     email: "janedoe",
     roles: [],
-    profileImgUrl: "../../../images/woman1.jpeg",
-    preferences: {
+    profile: {
       firstName: "Jane",
       lastName: "Doe",
+      imageUrl: "../../../images/woman1.jpeg",
     },
-    activity: {
-      firstActiveAt: "2023-01-01T00:00:00.000Z",
-      lastActiveAt: "2023-03-12T00:00:00.000Z",
-    },
+    preferences: {},
+    activity: [
+      { label: "User Created", value: "2023-01-01T00:00:00.000Z" },
+      { label: "User Updated", value: "2023-03-12T00:00:00.000Z" },
+    ],
   },
 ];

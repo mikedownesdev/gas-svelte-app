@@ -36,9 +36,11 @@ export const GAS_API = {
   getUser: (args) => callAPI("getUser", args),
 
   /**
-   * @returns {Promise<UserPreferences>}
+   *
+   * @param {PutUserArgs} args
+   * @returns {Promise<User>}
    */
-  getUserPreferences: () => callAPI("getUserPreferences"),
+  putUser: (args) => callAPI("putUser", args),
 
   /**
    * @param {GetViewConfigArgs} args
@@ -51,11 +53,4 @@ export const GAS_API = {
    * @returns {Promise<View>}
    */
   getViewData: (args) => callAPI("getViewData", args),
-
-  /**
-   *
-   * @param {SetUserPreferencesArgs} args
-   * @returns {Promise<UserPreferences>} the updated user preferences
-   */
-  setUserPreferences: (args) => callAPI("setUserPreferences", args),
 };

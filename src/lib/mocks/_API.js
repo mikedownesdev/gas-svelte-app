@@ -2,8 +2,7 @@ import { getAppConfiguration } from "./api/getAppConfiguration";
 import { getViewConfiguration } from "./api/getViewConfiguration";
 import { getViewData } from "./api/getViewData";
 import { getUser } from "./api/getUser";
-import { getUserPreferences } from "./api/getUserPreferences";
-import { setUserPreferences } from "./api/setUserPreferences";
+import { putUser } from "./api/putUser";
 import { putAppConfiguration } from "./api/putAppConfiguration";
 
 export default function getMocks() {
@@ -14,22 +13,10 @@ export default function getMocks() {
 
     // User
     getUser,
-
-    // User Preferences
-    getUserPreferences,
-    setUserPreferences,
+    putUser,
 
     // Views
     getViewConfiguration,
     getViewData,
-
-    // /*========* App Configuration API *========*/
-    // async initializeApp() {
-    //   await sleep();
-
-    //   let mockResponse = { success: true };
-
-    //   return JSON.parse(JSON.stringify(mockResponse));
-    // },
   };
 }

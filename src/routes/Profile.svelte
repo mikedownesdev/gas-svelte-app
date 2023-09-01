@@ -62,13 +62,13 @@
                 <div
                     class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1"
                 >
-                    <img src={user.profileImgUrl} alt="The user"/>
+                    <img src={user.profile.imageUrl} alt="The user"/>
                 </div>
             </div>
             <div class="py-1">
                 <h2 class="card-title">
-                    {user.preferences.firstName}
-                    {user.preferences.lastName}
+                    {user.profile.firstName}
+                    {user.profile.lastName}
                 </h2>
             </div>
             <div class="py-1">
@@ -80,8 +80,8 @@
                 {/each}
             </div>
             <div class="py-1">
-                <p class="text-sm">User Since: {user.activity.firstActiveAt}</p>
-                <p class="text-sm">Last Seen: {user.activity.firstActiveAt}</p>
+                <!-- <p class="text-sm">User Since: {user.activity.firstActiveAt}</p> -->
+                <!-- <p class="text-sm">Last Seen: {user.activity.firstActiveAt}</p> -->
             </div>
         </div>
         <div class="flex flex-col flex-grow items-center">
