@@ -1,8 +1,6 @@
 <script>
-    import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
     import { GAS_API } from "../lib/GAS_API";
-    import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
 
     /** @type {string} id - comes from URL params */
@@ -41,9 +39,6 @@
     }
 </script>
 
-{#if loading}
-    <LoadingSpinner />
-{/if}
 {#if user && !loading}
     <!-- <div class="flex flex-col items-center border-2">
         <div class="avatar online mb-4">
@@ -135,12 +130,28 @@
                 </div>
             </div>
             <Panel title="Recent Activity">
-                <p>Note. Some DNS Providers blah blah</p>
-                <div class="divider" />
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">App Name</span>
-                    </label>
+                <div slot="panel-content" class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th>
+                                    Label
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each user.activity as record}
+                                <tr>
+                                    <td>{record.label}</td>
+                                    <td>{record.value}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
                 </div>
             </Panel>
         </div>

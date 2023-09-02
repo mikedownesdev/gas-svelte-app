@@ -79,7 +79,7 @@
                 <div
                     class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1"
                 >
-                    <img src={$sessionUser?.profileImgUrl} />
+                    <img src={$sessionUser?.profile.imageUrl} />
                 </div>
             </label>
         </Link>

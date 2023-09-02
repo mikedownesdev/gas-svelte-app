@@ -3,7 +3,6 @@
     import PageNotFound from '../routes/404.svelte'
     import { sessionUser } from '../stores';
     
-
     $: isAuthenticated = $sessionUser?.roles?.includes('admin');
     console.log(isAuthenticated)
 

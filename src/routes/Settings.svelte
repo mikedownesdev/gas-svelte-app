@@ -1,7 +1,5 @@
 <script>
     import { Link } from "svelte-routing";
-    import LoadingSpinner from "../components/LoadingSpinner.svelte";
-    import runGas from "../lib/runGas.js";
     import Panel from "../components/Panel.svelte";
     import { isLoading } from "../stores";
     import Modal from "../components/Modal.svelte";

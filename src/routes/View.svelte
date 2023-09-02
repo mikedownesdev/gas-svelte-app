@@ -1,8 +1,6 @@
 <script>
-    import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
     import { GAS_API } from "../lib/GAS_API";
-    import runGas from "../lib/runGas.js";
     import { isLoading } from "../stores";
 
     /** @type {string} id - comes from URL params */
