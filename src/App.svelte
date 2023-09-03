@@ -202,7 +202,7 @@
           <div class="divider" />
           {#if appConfiguration}
             {#each appConfiguration?.viewConfigurations as view}
-              <NavLink to="view/{view.id}" onClick={toggleDrawer}>
+              <NavLink to="/view/{view.id}" onClick={toggleDrawer}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
