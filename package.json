@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:push": "vite build && clasp push",
+    "rollup:zod": "rollup -c rollup.config.zod.js",
+    "build": "vite build && npm run rollup:zod",
+    "build:push": "npm run build && clasp push",
     "build:css:watch": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "preview": "vite preview",
     "lint": "npx eslint src",
@@ -20,6 +21,8 @@
     "build:push:dev": "npm run set-env-dev && npm run build:push"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.9",
@@ -28,6 +31,7 @@
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
+    "rollup": "^3.28.1",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-delete": "^2.0.0",
     "svelte": "^4.0.3",
@@ -37,6 +41,7 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "@types/google-apps-script": "^1.0.64"
+    "@types/google-apps-script": "^1.0.64",
+    "zod": "^3.22.2"
   }
 }
