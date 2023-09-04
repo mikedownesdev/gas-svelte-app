@@ -1,5 +1,5 @@
 import sleep from "../sleep";
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * **API Endpoint** | Updates the app configuration and returns it
@@ -13,15 +13,15 @@ export async function putUser({ user }) {
     email: z.string().email(),
     roles: z.array(z.string()),
     profile: z.object({
-      imageUrl: z.string()
+      imageUrl: z.string(),
     }),
     preferences: z.object({
-      theme: z.enum(['light', 'dark']),
+      theme: z.enum(["light", "dark"]),
     }),
     activity: z.array(
       z.object({
         label: z.string(),
-        value: z.string() //should be a very particular type of string
+        value: z.string(), //should be a very particular type of string
       })
     ),
   });
@@ -29,7 +29,7 @@ export async function putUser({ user }) {
   const validUser = userSchema.parse(user);
 
   /** @type {User} */
-  let mockResponse = validUser
+  let mockResponse = validUser;
 
   console.log("mockResponse_user", mockResponse);
 

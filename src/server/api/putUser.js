@@ -1,6 +1,7 @@
-if (typeof require !== 'undefined') {
-  let z = require('zod').z;
+if (typeof require !== "undefined") {
+  var z = require("zod").z;
 }
+
 /**
  * @typedef {Object} PutUserArgs
  * @property {User} user
@@ -11,7 +12,6 @@ if (typeof require !== 'undefined') {
  * @returns {User | null}
  */
 function putUser({ user }) {
-  
   console.log("putUser() called with: ", user);
 
   // Validating the user
@@ -19,15 +19,15 @@ function putUser({ user }) {
     email: z.string().email(),
     roles: z.array(z.string()),
     profile: z.object({
-      imageUrl: z.string()
+      imageUrl: z.string(),
     }),
     preferences: z.object({
-      theme: z.enum(['light', 'dark']),
+      theme: z.enum(["light", "dark"]),
     }),
     activity: z.array(
       z.object({
         label: z.string(),
-        value: z.string() //should be a very particular type of string
+        value: z.string(), //should be a very particular type of string
       })
     ),
   });
@@ -44,7 +44,6 @@ function putUser({ user }) {
 
     console.log("User successfully saved.");
     return validUser;
-
   } catch (error) {
     // The user object was invalid
     console.error("Invalid user object:", error);
