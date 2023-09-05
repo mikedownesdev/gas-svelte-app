@@ -1,13 +1,17 @@
-/**
- * @typedef {Object} GetViewDataArgs
- * @property {string} id
- */
+import { ViewType } from "../../types/schemas";
+
+export type GetViewDataArgs = {
+  id: string;
+};
+
+import { getViewConfiguration } from "./getViewConfiguration";
+
 /**
  * **API Endpoint** | Returns the data for the view with the provided id
  * @param {GetViewDataArgs} args
  * @returns {View}
  */
-function getViewData({ id }) {
+function getViewData({ id }: GetViewDataArgs): ViewType {
   const viewConfiguration = getViewConfiguration({ id });
 
   if (!viewConfiguration) {

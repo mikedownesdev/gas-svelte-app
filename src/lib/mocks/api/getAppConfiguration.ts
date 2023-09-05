@@ -1,10 +1,8 @@
 import sleep from "../sleep";
 import { appConfiguration } from "../data/appConfiguration";
+import { AppConfigurationType } from "../../../types/schemas";
 
-/**
- * @returns {Promise<AppConfiguration>} the app configuration
- */
-export async function getAppConfiguration() {
+export async function getAppConfiguration(): Promise<AppConfigurationType> {
   sleep();
 
   /** @type {AppConfiguration} */

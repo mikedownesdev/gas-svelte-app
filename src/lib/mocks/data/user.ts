@@ -1,5 +1,6 @@
-/** @type {User} */
-export const user = {
+import { UserType } from "../../../types/schemas";
+
+export const user: UserType = {
   email: "mock_mockerson@test.com",
   roles: ["superAdmin", "admin"],
   profile: {
@@ -16,8 +17,7 @@ export const user = {
   ],
 };
 
-/** @type {User[]} */
-export const users = [
+export const users: UserType[] = [
   user,
   {
     email: "johndoe",
@@ -27,7 +27,9 @@ export const users = [
       lastName: "Doe",
       imageUrl: "../../../images/man1.jpeg",
     },
-    preferences: {},
+    preferences: {
+      theme: "light",
+    },
     activity: [
       { label: "User Created", value: "2023-01-01T00:00:00.000Z" },
       { label: "User Updated", value: "2023-03-12T00:00:00.000Z" },
@@ -41,7 +43,9 @@ export const users = [
       lastName: "Doe",
       imageUrl: "../../../images/woman1.jpeg",
     },
-    preferences: {},
+    preferences: {
+      theme: "light",
+    },
     activity: [
       { label: "User Created", value: "2023-01-01T00:00:00.000Z" },
       { label: "User Updated", value: "2023-03-12T00:00:00.000Z" },

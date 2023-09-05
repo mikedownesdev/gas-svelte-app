@@ -119,7 +119,7 @@
             <Home on:newToast={handleNewToast} />
           </Route>
           <ProtectedRoute path="settings">
-            <Settings {appConfiguration} />
+            <Settings {appConfiguration} on:newToast={handleNewToast} />
           </ProtectedRoute>
           <Route path="user-preferences">
             <UserPreferences

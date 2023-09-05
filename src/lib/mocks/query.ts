@@ -1,6 +1,11 @@
+import { ViewConfigurationType } from "../../types/schemas";
 import { mockData } from "./data/mockData";
 
-export default function query(viewConfiguration) {
+/**
+ * @param {ViewConfigurationType} viewConfiguration
+ * @returns {Record<string, any>[]}
+ */
+export default function query(viewConfiguration: ViewConfigurationType) {
   const { spreadsheetId, gid } = viewConfiguration.dataSource;
   const { fields } = viewConfiguration;
   const { records } = mockData[spreadsheetId];

@@ -1,13 +1,17 @@
-/**
- * @typedef {Object} GetViewConfigArgs
- * @property {string} id
- */
+import { ViewConfigurationType } from "../../types/schemas";
+
+export type GetViewConfigArgs = {
+  id: string;
+};
+
 /**
  * **API Endpoint** | Returns the accessing users preferences
  * @param {GetViewConfigArgs} args
  * @returns {ViewConfiguration}
  */
-function getViewConfiguration({ id }) {
+export function getViewConfiguration({
+  id,
+}: GetViewConfigArgs): ViewConfigurationType {
   console.log("getting view configuration for viewId:", id);
   // Check user identity for permissions to view this configuration
 
@@ -24,7 +28,7 @@ function getViewConfiguration({ id }) {
   const appConfigurationObject = JSON.parse(appConfigurationString);
 
   const viewConfiguration = appConfigurationObject.viewConfigurations.find(
-    (config) => config.id === id
+    (config: ViewConfigurationType) => config.id === id
   );
 
   return viewConfiguration;

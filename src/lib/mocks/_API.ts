@@ -5,7 +5,21 @@ import { getUser } from "./api/getUser";
 import { putUser } from "./api/putUser";
 import { putAppConfiguration } from "./api/putAppConfiguration";
 
-export default function getMocks() {
+type MockEndpoints = {
+  // App Configuration
+  getAppConfiguration: typeof getAppConfiguration;
+  putAppConfiguration: typeof putAppConfiguration;
+
+  // User
+  getUser: typeof getUser;
+  putUser: typeof putUser;
+
+  // Views
+  getViewConfiguration: typeof getViewConfiguration;
+  getViewData: typeof getViewData;
+};
+
+export default function getMocks(): MockEndpoints {
   return {
     // App Configuration
     getAppConfiguration,

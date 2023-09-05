@@ -1,13 +1,15 @@
-/**
- * @typedef {Object} GetUserArgs
- * @property {string} email
- */
+import { UserType } from "../../types/schemas";
+
+export type GetUserArgs = {
+  email: string | undefined;
+};
+
 /**
  * **API Endpoint** | Returns the accessing user object
- * @param {GetUserArgs} [optionalArgs] - Optional parameter containing user email.
+ * @param {GetUserArgs} [optionalArgs] - Optional parameter containing user email. If no email is provided, the requesting user's email is used.
  * @returns {Promise<User>}
  */
-async function getUser({ email } = { email: undefined }) {
+async function getUser({ email } = { email: undefined }): Promise<UserType> {
   let requestingUserEmail = Session.getActiveUser().getEmail();
   let EMAIL_FOR_RETRIEVAL = email || requestingUserEmail;
   let isRequestForSelf = requestingUserEmail === EMAIL_FOR_RETRIEVAL;

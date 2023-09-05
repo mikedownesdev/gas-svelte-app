@@ -1,13 +1,15 @@
 import sleep from "../sleep";
 import query from "../query";
 import { getViewConfiguration } from "./getViewConfiguration";
+import { ViewType } from "../../../types/schemas";
+import { GetViewDataArgs } from "../../../server/api/getViewData";
 
 /**
  *
  * @param {GetViewDataArgs} args
- * @returns {Promise<View>}
+ * @returns {Promise<ViewType>}
  */
-export async function getViewData({ id }) {
+export async function getViewData({ id }: GetViewDataArgs): Promise<ViewType> {
   console.log("getting view data for viewId:", id);
   const viewConfiguration = await getViewConfiguration({ id });
 

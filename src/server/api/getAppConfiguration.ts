@@ -1,8 +1,10 @@
+import { AppConfigurationType } from "../../types/schemas";
+
 /**
  * **API Endpoint** | Returns the app configuration
  * @returns {AppConfiguration | null}
  */
-function getAppConfiguration() {
+function getAppConfiguration(): AppConfigurationType {
   console.log("getting app configuration");
 
   /** @type {AppConfiguration} */

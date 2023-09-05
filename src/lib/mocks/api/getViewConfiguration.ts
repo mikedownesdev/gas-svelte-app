@@ -1,11 +1,11 @@
 import sleep from "../sleep";
 import { viewConfigurations } from "../data/viewConfigurations";
+import { ViewConfigurationType } from "../../../types/schemas";
+import { GetViewConfigArgs } from "../../../server/api/getViewConfiguration";
 
-/**
- * @param {GetViewConfigArgs} args
- * @returns {Promise<ViewConfiguration>}
- */
-export async function getViewConfiguration({ id }) {
+export async function getViewConfiguration({
+  id,
+}: GetViewConfigArgs): Promise<ViewConfigurationType> {
   console.log("getting view configuration for viewId:", id);
   await sleep();
 

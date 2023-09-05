@@ -4,6 +4,8 @@
     import { isLoading } from "../stores";
     import Modal from "../components/Modal.svelte";
     import { GAS_API } from "../lib/GAS_API";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     /** @type {AppConfiguration} */
     export let appConfiguration;
@@ -23,9 +25,21 @@
             .then((result) => {
                 console.log("App configuration updated:", result);
                 newAdmin = "";
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: "success",
+                    message: "App updated!",
+                    milliseconds: 3000,
+                });
             })
             .catch((err) => {
                 console.error("Could not update app configuration:", err);
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: "error",
+                    message: "Your changes could not be saved",
+                    milliseconds: 3000,
+                });
             })
             .finally(() => {
                 console.log("App configuration updated.");
