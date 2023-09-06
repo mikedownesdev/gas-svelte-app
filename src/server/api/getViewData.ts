@@ -1,9 +1,18 @@
+import { ViewType } from "../../types/schemas";
+
+export type GetViewDataArgs = {
+  id: string;
+};
+
+import { getViewConfiguration } from "./getViewConfiguration";
+
 /**
- * @param {string} viewId
+ * **API Endpoint** | Returns the data for the view with the provided id
+ * @param {GetViewDataArgs} args
  * @returns {View}
  */
-function getViewData(viewId) {
-  const viewConfiguration = getViewConfiguration(viewId);
+function getViewData({ id }: GetViewDataArgs): ViewType {
+  const viewConfiguration = getViewConfiguration({ id });
 
   if (!viewConfiguration) {
     throw new Error("View configuration not found");

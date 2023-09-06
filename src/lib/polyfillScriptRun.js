@@ -1,27 +1,40 @@
-import getMocks from "./mocks/getMocks";
+import getMocks from "./mocks/_API";
 let polyfilled = false;
+
 export default async function polyfillScriptRun() {
   if (polyfilled) return;
   polyfilled = true;
+
   const _window =
-    "undefined" !== typeof window
+    typeof window !== "undefined"
       ? window
-      : "undefined" !== typeof globalThis
+      : typeof globalThis !== "undefined"
       ? globalThis
       : {};
-  const google = _window?.google || {};
+
+  const google = _window.google || {};
   _window.google = google;
 
   if (!google.script || !google.script.run) {
-    let mocks = {};
+    const mocks = getMocks();
     google.script = google.script || {};
     google.script.run = {
       withSuccessHandler: (resolve) => {
-        mocks = getMocks(resolve);
         return {
-          withFailureHandler: () => ({
-            ...mocks,
-          }),
+          withFailureHandler: (reject) => {
+            const wrappedMocks = {};
+            for (const [key, value] of Object.entries(mocks)) {
+              wrappedMocks[key] = async (...args) => {
+                try {
+                  const result = await value(...args);
+                  resolve(result);
+                } catch (error) {
+                  reject(error);
+                }
+              };
+            }
+            return wrappedMocks;
+          },
         };
       },
     };

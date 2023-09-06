@@ -1,8 +1,10 @@
+import { ViewConfigurationType } from "../../../types/schemas";
+
 /**
  * Mock data for view configurations
- * @type {ViewConfiguration[]}}
+ * @type {ViewConfigurationType[]}}
  */
-export const viewConfigurations = [
+export const viewConfigurations: ViewConfigurationType[] = [
   {
     id: "1",
     label: "First View",

@@ -18,6 +18,7 @@ the ground, this project provides a few extra opinions, UI elements, type defini
 
 - [clasp]
 - [clasp.env]
+- husky
 
 # Features
 
