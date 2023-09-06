@@ -66,9 +66,9 @@ jobs:
         id: clasp-push
         run: clasp push -f
 
-      # - name: Deploy Script
-      #   id: clasp-deploy
-      #   if: ${{env.TEST_DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/develop'))}}
-      #   run: clasp deploy -i "$TEST_DEPLOYMENT_ID" -d ${{github.run_number}}
-      #   env:
-      #     TEST_SCRIPT_ID: ${{ secrets.TEST_SCRIPT_ID }}
+      - name: Deploy Script
+        id: clasp-deploy
+        if: ${{env.TEST_DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/test'))}}
+        run: clasp deploy -i "$TEST_DEPLOYMENT_ID" -d ${{github.run_number}}
+        env:
+          TEST_SCRIPT_ID: ${{ secrets.TEST_SCRIPT_ID }}
