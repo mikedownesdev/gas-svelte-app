@@ -1,7 +1,6 @@
 <script>
-    import LoadingSpinner from "../components/LoadingSpinner.svelte";
     import Panel from "../components/Panel.svelte";
-    import runGas from "../lib/runGas.js";
+    import { GAS_API } from "../lib/GAS_API";
     import { isLoading } from "../stores";
 
     /** @type {string} id - comes from URL params */
@@ -25,24 +24,21 @@
 
         console.log("fetching user data for profile...");
 
-        runGas("getUser", [email])
+        GAS_API.getUser({ email })
             .then((result) => {
                 user = result;
-                console.log("Profile data:", user);
+                console.log("User data:", user);
             })
             .catch((err) => {
-                console.error("Could not get user profile", err);
+                console.error("Could not get user data:", err);
             })
             .finally(() => {
-                console.log("User profile loaded.");
+                console.log("User data loaded.");
                 isLoading.set(false)
             });
     }
 </script>
 
-{#if loading}
-    <LoadingSpinner />
-{/if}
 {#if user && !loading}
     <!-- <div class="flex flex-col items-center border-2">
         <div class="avatar online mb-4">
@@ -61,13 +57,13 @@
                 <div
                     class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1"
                 >
-                    <img src={user.profileImgUrl} alt="The user"/>
+                    <img src={user.profile.imageUrl} alt="The user"/>
                 </div>
             </div>
             <div class="py-1">
                 <h2 class="card-title">
-                    {user.preferences.firstName}
-                    {user.preferences.lastName}
+                    {user.profile.firstName}
+                    {user.profile.lastName}
                 </h2>
             </div>
             <div class="py-1">
@@ -79,8 +75,8 @@
                 {/each}
             </div>
             <div class="py-1">
-                <p class="text-sm">User Since: {user.activity.firstActiveAt}</p>
-                <p class="text-sm">Last Seen: {user.activity.firstActiveAt}</p>
+                <!-- <p class="text-sm">User Since: {user.activity.firstActiveAt}</p> -->
+                <!-- <p class="text-sm">Last Seen: {user.activity.firstActiveAt}</p> -->
             </div>
         </div>
         <div class="flex flex-col flex-grow items-center">
@@ -134,12 +130,28 @@
                 </div>
             </div>
             <Panel title="Recent Activity">
-                <p>Note. Some DNS Providers blah blah</p>
-                <div class="divider" />
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">App Name</span>
-                    </label>
+                <div slot="panel-content" class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th>
+                                    Label
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each user.activity as record}
+                                <tr>
+                                    <td>{record.label}</td>
+                                    <td>{record.value}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
                 </div>
             </Panel>
         </div>

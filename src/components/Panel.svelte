@@ -7,16 +7,18 @@
 <div class="mt-8 w-full">
     <div class="flex justify-between">
         <h3 class="card-title">{title}</h3>
-        <!-- <button class="btn btn-sm btn-primary rounded-md">save</button> -->
+        <slot name="button" />
     </div>
-    <div
-        class="card mt-4 bg-base-100 p-8 border-base-300 border-2 rounded-md shadow-sm"
-    >
+    <div class="card mt-4 bg-base-100 p-8 border-base-300 border-2 rounded-md shadow-sm">
         {#if $isLoading}
             <div
                 class="absolute w-full bg-base-300 opacity-50 h-full top-0 left-0"
             />
         {/if}
-        <slot />
+        <slot class="text-base-200" name="description" />
+        <div class="divider" />
+        <div class="panel-content">
+            <slot name="panel-content"/>
+        </div>
     </div>
 </div>

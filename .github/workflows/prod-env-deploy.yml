@@ -1,9 +1,9 @@
-name: Test Env Deploy Script
+name: Prod Env Deploy Script
 
 on:
   workflow_dispatch:
   push:
-    branches: [test]
+    branches: [main]
 
 jobs:
   build_and_deploy:
@@ -53,9 +53,9 @@ jobs:
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
-        run: jq '.scriptId = "${{env.TEST_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        run: jq '.scriptId = "${{env.PROD_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          TEST_SCRIPT_ID: ${{secrets.TEST_SCRIPT_ID}}
+          TEST_SCRIPT_ID: ${{secrets.PROD_SCRIPT_ID}}
   
       ## Build & push
 
@@ -69,6 +69,6 @@ jobs:
       - name: Deploy Script
         id: clasp-deploy
         if: github.ref == 'refs/heads/test'
-        run: clasp deploy -i "${{ secrets.TEST_DEPLOYMENT_ID }}" -d ${{github.run_number}}
+        run: clasp deploy -i "${{ secrets.PROD_DEPLOYMENT_ID }}" -d ${{github.run_number}}
         env:
-          TEST_SCRIPT_ID: ${{ secrets.TEST_SCRIPT_ID }}
+          TEST_SCRIPT_ID: ${{ secrets.PROD_SCRIPT_ID }}

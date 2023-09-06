@@ -18,11 +18,8 @@
     <script type="module">
       import { navigate } from "svelte-routing";
       // This is necessary to load the homepage when the app is deployed to Google Apps Script
-      if (window.location.pathname !== '/') {
-        // window.location.pathname = '/'
-        console.log('navigating to home')
-        navigate('/', { replace: true })
-      }
+      console.log('navigating to home')
+      navigate('/', { replace: true })
     </script>
   </body>
 </html>
