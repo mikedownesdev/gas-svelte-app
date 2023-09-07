@@ -55,7 +55,7 @@ jobs:
         id: set-script-id
         run: jq '.scriptId = "${{env.PROD_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          TEST_SCRIPT_ID: ${{secrets.PROD_SCRIPT_ID}}
+          PROD_SCRIPT_ID: ${{secrets.PROD_SCRIPT_ID}}
   
       ## Build & push
 
@@ -68,7 +68,7 @@ jobs:
 
       - name: Deploy Script
         id: clasp-deploy
-        if: github.ref == 'refs/heads/test'
+        if: github.ref == 'refs/heads/main'
         run: clasp deploy -i "${{ secrets.PROD_DEPLOYMENT_ID }}" -d ${{github.run_number}}
         env:
-          TEST_SCRIPT_ID: ${{ secrets.PROD_SCRIPT_ID }}
+          PROD_SCRIPT_ID: ${{ secrets.PROD_SCRIPT_ID }}
