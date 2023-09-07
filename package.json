@@ -20,6 +20,9 @@
     "set-env-dev": "export $(grep -v '^#' .env | xargs) && npx clasp-env --folder . --scriptId $DEVELOPMENT_SCRIPT_ID",
     "build:push:dev": "npm run set-env-dev && npm run build:push"
   },
+  "lint-staged": {
+    "*.{js,ts,svelte,html,css}": "prettier --write"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.1",
@@ -28,6 +31,7 @@
     "daisyui": "^3.1.9",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
+    "lint-staged": "^14.0.1",
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
