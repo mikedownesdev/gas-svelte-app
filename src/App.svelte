@@ -29,24 +29,19 @@
     }, event.detail.milliseconds);
   }
 
-  $: userIsAdmin = $sessionUser?.roles?.includes("admin");
+  
+  /** @type {AppConfiguration | null} */
+  let appConfiguration = null
 
-  $: initialLoadComplete =
-    $sessionUser !== undefined && appConfiguration !== undefined;
+  $: initialLoadComplete = $sessionUser && appConfiguration;
+  $: userIsAdmin = $sessionUser?.roles?.includes("admin");
 
   let isDrawerOpen = false;
   const toggleDrawer = () => {
     isDrawerOpen = !isDrawerOpen;
   };
 
-  // Used for SSR. A falsy value is ignored by the Router.
-  export let url = "";
-
-  
   let toasts = [];
-
-  /** @type {AppConfiguration | undefined} */
-  let appConfiguration = undefined;
 
   onMount(() => {
     fetchUser();
@@ -60,7 +55,6 @@
     isLoading.set(true);
 
     console.log("fetching user...");
-
 
     GAS_API.getUser()
       .then((result) => {
@@ -99,7 +93,7 @@
   }
 </script>
 
-<Router {url}>
+<Router>
   {#if !initialLoadComplete}
     <FirstLoad />
   {:else}

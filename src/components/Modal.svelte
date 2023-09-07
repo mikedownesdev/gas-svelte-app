@@ -1,7 +1,6 @@
-<script>
-    /** @type {string} */
-    export let id;
-    export let title = "";
+<script lang="ts">
+    export let id: string;
+    export let title: string = "";
 </script>
 
 <dialog {id} class="modal modal-bottom sm:modal-middle">
