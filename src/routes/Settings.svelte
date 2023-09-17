@@ -84,13 +84,6 @@
 
 <div>
     {#if appConfiguration}
-        <div class="tabs">
-            <a class="tab tab-lg tab-active">General</a>
-            <a class="tab tab-lg">Users</a>
-            <a class="tab tab-lg">Data & Views</a>
-            <a class="tab tab-lg">Warnings & Errors</a>
-        </div>
-
         <Panel title="General">
             <button slot="button" class="btn">Test</button>
             <p class="text-gray-500" slot="description">

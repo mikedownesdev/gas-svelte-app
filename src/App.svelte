@@ -2,7 +2,7 @@
   import { Route, Router } from "svelte-routing";
   import NavLink from "./components/NavLink.svelte";
   import ProtectedRoute from "./components/ProtectedRoute.svelte";
-  import FirstLoad from "./components/FirstLoad.svelte";
+  import InitialLoad from "./components/InitialLoad.svelte";
   import View from "./routes/View.svelte";
   import Home from "./routes/Home.svelte";
   import Settings from "./routes/Settings.svelte";
@@ -95,7 +95,7 @@
 
 <Router>
   {#if !initialLoadComplete}
-    <FirstLoad />
+    <InitialLoad />
   {:else}
     <div class="drawer min-h-screen">
       <input

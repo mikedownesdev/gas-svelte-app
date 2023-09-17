@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "rollup:zod": "rollup -c rollup.config.zod.js",
-    "build": "vite build && npm run rollup:zod",
+    "rollup:npm": "rollup -c rollup.config.npm.js",
+    "build": "vite build && npm run rollup:npm",
     "build:push": "npm run build && clasp push",
     "build:css:watch": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "preview": "vite preview",
@@ -16,9 +16,7 @@
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix",
     "prepare": "husky install",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
-    "set-env-dev": "export $(grep -v '^#' .env | xargs) && npx clasp-env --folder . --scriptId $DEVELOPMENT_SCRIPT_ID",
-    "build:push:dev": "npm run set-env-dev && npm run build:push"
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "lint-staged": {
     "*.{js,ts,svelte,html,css}": "prettier --write"
