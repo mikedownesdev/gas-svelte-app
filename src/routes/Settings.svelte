@@ -1,7 +1,9 @@
 <script>
     import AddAdminModal from "../components/AddAdminModal.svelte";
     import Panel from "../components/Panel.svelte";
+    import RemoveAdminModal from "../components/RemoveAdminModal.svelte";
     import { isLoading, appConfiguration } from "../stores";
+    import { sanitizeEmail } from "../lib/sanitizeEmail";
 </script>
 
 <div>
@@ -26,8 +28,10 @@
         </Panel>
 
         <Panel title="Admins">
-            <button slot="button" onclick="admin_modal.showModal()" class="btn"
-                >Add Admin</button
+            <button
+                slot="button"
+                onclick="add_admin_modal.showModal()"
+                class="btn">Add Admin</button
             >
             <p class="text-gray-500" slot="description">
                 Remember, admins have access to do some spooky stuff!
@@ -38,14 +42,6 @@
                         <!-- head -->
                         <thead>
                             <tr>
-                                <th>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            class="checkbox"
-                                        />
-                                    </label>
-                                </th>
                                 <th>Admin</th>
                             </tr>
                         </thead>
@@ -53,14 +49,6 @@
                             {#each $appConfiguration.admins as admin}
                                 <!-- row -->
                                 <tr>
-                                    <th>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                class="checkbox"
-                                            />
-                                        </label>
-                                    </th>
                                     <td>
                                         <div
                                             class="flex items-center space-x-3"
@@ -92,9 +80,17 @@
                                         </div>
                                     </td>
                                     <th>
-                                        <button class="btn btn-ghost btn-xs"
-                                            >details</button
+                                        <button
+                                            onclick={`remove_admin_${sanitizeEmail(
+                                                admin.email
+                                            )}.showModal()`}
+                                            class="btn btn-ghost btn-xs"
+                                            >Remove</button
                                         >
+                                        <RemoveAdminModal
+                                            on:newToast
+                                            user={admin}
+                                        />
                                     </th>
                                 </tr>
                             {/each}

@@ -9,12 +9,24 @@ export type PutUserArgs = {
  * @param {PutUserArgs} args
  * @returns {UserType}
  */
-function putUser({ user }: PutUserArgs): UserType {
-  console.log("putUser() called with: ", user);
+export function putUser({ user }: PutUserArgs): UserType {
+  const invokingUserEmail = Session.getActiveUser().getEmail();
+
+  console.log("putUser() called with: ", user, "by: ", invokingUserEmail);
 
   const validUser = User.parse(user);
 
+  if (
+    validUser.email !== invokingUserEmail &&
+    validUser.email !== Session.getEffectiveUser().getEmail()
+  ) {
+    throw new Error(
+      "A user resource can only be updated by themselves or the superAdmin."
+    );
+  }
+
   // If the code reaches here, the user object is valid
+  // and the invoking user is either the user or a superAdmin.
   const propertyKey = validUser.email;
   const scriptPropertiesService = PropertiesService.getScriptProperties();
   scriptPropertiesService.setProperty(propertyKey, JSON.stringify(validUser));

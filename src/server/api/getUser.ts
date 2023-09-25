@@ -2,11 +2,9 @@ import { UserType } from "../../types/schemas";
 import { createUser_ } from "../lib/createUser_";
 import { z } from "zod";
 
-const GetUserArgsSchema = z.object({
-  email: z.string().nullable(),
-});
-
-export type GetUserArgs = z.infer<typeof GetUserArgsSchema>;
+export type GetUserArgs = {
+  email: string | null;
+};
 
 /**
  * **API Endpoint** | Returns the accessing user object
@@ -17,6 +15,9 @@ async function getUser(
   { email }: GetUserArgs = { email: null }
 ): Promise<UserType | null> {
   // Validate the arguments against the schema
+  const GetUserArgsSchema = z.object({
+    email: z.string().nullable(),
+  });
   const validArgs = GetUserArgsSchema.parse({ email });
 
   let requestingUserEmail = Session.getActiveUser().getEmail();
