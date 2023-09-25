@@ -11,8 +11,9 @@
   import HeaderBar from "./components/HeaderBar.svelte";
   import Toaster from "./components/Toaster.svelte";
   import { onMount } from "svelte";
-  import { sessionUser, isLoading } from "./stores";
+  import { sessionUser, isLoading, appConfiguration } from "./stores";
   import { GAS_API } from "./lib/GAS_API";
+  import { fetchAppConfiguration } from "./lib/fetchAppConfig";
 
   /**
    *
@@ -29,11 +30,7 @@
     }, event.detail.milliseconds);
   }
 
-  
-  /** @type {AppConfiguration | null} */
-  let appConfiguration = null
-
-  $: initialLoadComplete = $sessionUser && appConfiguration;
+  $: initialLoadComplete = $sessionUser && $appConfiguration;
   $: userIsAdmin = $sessionUser?.roles?.includes("admin");
 
   let isDrawerOpen = false;
@@ -69,28 +66,6 @@
         isLoading.set(false);
       });
   }
-
-  /**
-   * Fetches the app configuration from the server.
-   */
-  async function fetchAppConfiguration() {
-    isLoading.set(true);
-
-    console.log("fetching app configuration...");
-
-    GAS_API.getAppConfiguration()
-      .then((result) => {
-        appConfiguration = result;
-        console.log("App configuration:", appConfiguration);
-      })
-      .catch((err) => {
-        console.error("Could not get app configuration:", err);
-      })
-      .finally(() => {
-        console.log("App configuration loaded.");
-        isLoading.set(false);
-      });
-  }
 </script>
 
 <Router>
@@ -107,19 +82,16 @@
       />
       <div class="drawer-content bg-base-200">
         <!-- Page content here -->
-        <HeaderBar title={appConfiguration?.appName} />
+        <HeaderBar title={$appConfiguration?.appName} />
         <main class="container mx-auto pb-8">
           <Route path="/">
             <Home on:newToast={handleNewToast} />
           </Route>
           <ProtectedRoute path="settings">
-            <Settings {appConfiguration} on:newToast={handleNewToast} />
+            <Settings {$appConfiguration} on:newToast={handleNewToast} />
           </ProtectedRoute>
           <Route path="user-preferences">
-            <UserPreferences
-              user={$sessionUser}
-              on:newToast={handleNewToast}
-            />
+            <UserPreferences user={$sessionUser} on:newToast={handleNewToast} />
           </Route>
           <Route path="view/:id" let:params>
             <View id={params.id} />
@@ -195,7 +167,7 @@
           </NavLink>
           <div class="divider" />
           {#if appConfiguration}
-            {#each appConfiguration?.viewConfigurations as view}
+            {#each $appConfiguration?.viewConfigurations as view}
               <NavLink to="/view/{view.id}" onClick={toggleDrawer}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
