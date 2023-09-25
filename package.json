@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@types/google-apps-script": "^1.0.64",
+    "lodash": "^4.17.21",
     "zod": "^3.22.2"
   }
 }
