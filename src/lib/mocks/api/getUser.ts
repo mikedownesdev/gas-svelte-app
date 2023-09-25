@@ -8,17 +8,20 @@ import { GetUserArgs } from "../../../server/api/getUser";
  * @returns {Promise<UserType>}
  */
 export async function getUser(
-  { email }: GetUserArgs = { email: undefined }
-): Promise<UserType | undefined> {
+  { email }: GetUserArgs = { email: null }
+): Promise<UserType | null> {
   await sleep();
 
   /** @type {User | undefined} */
-  let mockResponse = undefined;
+  let mockResponse = null;
 
   if (!email) {
     mockResponse = user;
   } else {
-    mockResponse = users.find((user) => user.email === email);
+    let user = users.find((user) => user.email === email);
+    if (user) {
+      mockResponse = user;
+    }
   }
 
   console.log("mockResponse", mockResponse);
