@@ -1,15 +1,15 @@
-import { UserType } from "../../types/schemas";
+import { UserType, User } from "../../types/schemas";
 
 /**
  * Creates a new user object with defaults and stores it in script properties.
  * @param {string} email
  * @returns {User}
  */
-export function createUser_(email: string): UserType {
+function createUser_(email: string, overrides = {}): UserType {
   const scriptPropertiesService = PropertiesService.getScriptProperties();
   const profileImgUrl = loadUserProfileImageUrl_(email);
 
-  let user: UserType = {
+  let userDefaults: UserType = {
     email,
     roles: [],
     preferences: {
@@ -26,7 +26,14 @@ export function createUser_(email: string): UserType {
     ],
   };
 
-  scriptPropertiesService.setProperty(email, JSON.stringify(user));
+  let user = {
+    ...userDefaults,
+    ...overrides,
+  };
+
+  let validUser = User.parse(user); // throws if invalid
+
+  scriptPropertiesService.setProperty(email, JSON.stringify(validUser));
 
   return user;
 }

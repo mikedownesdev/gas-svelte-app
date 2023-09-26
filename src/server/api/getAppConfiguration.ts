@@ -1,13 +1,17 @@
-import { AppConfigurationType, UserType, User } from "../../types/schemas";
+import {
+  AppConfigurationType,
+  AppConfiguration,
+  UserType,
+  User,
+} from "../../types/schemas";
 
 /**
  * **API Endpoint** | Returns the app configuration
  * @returns {AppConfiguration | null}
  */
-export function getAppConfiguration(): AppConfigurationType {
+export function getAppConfiguration(): AppConfigurationType | null {
   console.log("getting app configuration");
 
-  /** @type {AppConfiguration} */
   const appConfigurationObject = loadAppConfiguration_();
 
   console.log(appConfigurationObject);
@@ -17,16 +21,25 @@ export function getAppConfiguration(): AppConfigurationType {
   return appConfigurationObject;
 }
 
-/** @returns {AppConfiguration | null} */
-function loadAppConfiguration_() {
+/**
+ * Loads the app configuration from the script properties
+ * @returns {AppConfiguration | null}
+ */
+function loadAppConfiguration_(): AppConfigurationType | null {
   const scriptPropertiesService = PropertiesService.getScriptProperties();
   const scriptProperties = scriptPropertiesService.getProperties();
   const appConfigurationString = scriptProperties.appConfiguration || null;
 
-  let admins = getAdmins();
+  if (!appConfigurationString) {
+    return null;
+  }
 
-  let appConfig = JSON.parse(appConfigurationString);
-  appConfig['admins'] = admins;
+  let appConfig: AppConfigurationType = {
+    ...JSON.parse(appConfigurationString),
+    admins: getAdmins(),
+  };
+
+  AppConfiguration.parse(appConfig);
 
   return appConfig;
 
@@ -55,6 +68,4 @@ function loadAppConfiguration_() {
 
     return adminUsers;
   }
-
-
 }
