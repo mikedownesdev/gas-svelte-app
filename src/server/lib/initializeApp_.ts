@@ -1,12 +1,10 @@
 import { AppConfigurationType } from "../../types/schemas";
+import { ENV } from "../env";
 
 /**
  * Initialize the app
  */
 export function initializeApp_(): Object {
-  const ENV = {
-    executeAs: "USER_DEPLOYING", // "USER_DEPLOYING" | "USER_ACCESSING"
-  };
 
   let superAdminEmail: string = "";
   if (ENV.executeAs === "USER_DEPLOYING") {
