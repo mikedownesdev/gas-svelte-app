@@ -1,5 +1,4 @@
 import { UserType } from "../../types/schemas";
-import { createUser_ } from "../lib/createUser_";
 import { z } from "zod";
 
 export type GetUserArgs = {
@@ -14,13 +13,21 @@ export type GetUserArgs = {
 async function getUser(
   { email }: GetUserArgs = { email: null }
 ): Promise<UserType | null> {
+  let requestingUserEmail = Session.getActiveUser().getEmail();
+  // Report request
+  console.log(
+    "getUser called with args:",
+    { email },
+    " | by: ",
+    requestingUserEmail
+  );
+
   // Validate the arguments against the schema
   const GetUserArgsSchema = z.object({
     email: z.string().nullable(),
   });
   const validArgs = GetUserArgsSchema.parse({ email });
 
-  let requestingUserEmail = Session.getActiveUser().getEmail();
   let EMAIL_FOR_RETRIEVAL = validArgs.email || requestingUserEmail;
   let isRequestForSelf = requestingUserEmail === EMAIL_FOR_RETRIEVAL;
 

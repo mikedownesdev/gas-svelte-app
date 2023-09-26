@@ -5,7 +5,6 @@ import { ENV } from "../env";
  * Initialize the app
  */
 export function initializeApp_(): Object {
-
   let superAdminEmail: string = "";
   if (ENV.executeAs === "USER_DEPLOYING") {
     superAdminEmail = Session.getEffectiveUser().getEmail();

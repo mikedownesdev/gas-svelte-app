@@ -104,6 +104,6 @@
 
 <style>
     .selected {
-        background-color: #961c1c;
+        background-color: hsl(var(--s));
     }
 </style>
