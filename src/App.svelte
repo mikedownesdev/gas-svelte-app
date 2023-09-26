@@ -11,7 +11,12 @@
   import HeaderBar from "./components/HeaderBar.svelte";
   import Toaster from "./components/Toaster.svelte";
   import { onMount } from "svelte";
-  import { sessionUser, isLoading, appConfiguration } from "./stores";
+  import {
+    sessionUser,
+    isLoading,
+    appConfiguration,
+    userIsAdmin,
+  } from "./stores";
   import { GAS_API } from "./lib/GAS_API";
   import { fetchAppConfiguration } from "./lib/fetchAppConfig";
 
@@ -31,7 +36,6 @@
   }
 
   $: initialLoadComplete = $sessionUser && $appConfiguration;
-  $: userIsAdmin = $sessionUser?.roles?.includes("admin");
 
   let isDrawerOpen = false;
   const toggleDrawer = () => {
@@ -123,7 +127,7 @@
             Home
           </NavLink>
 
-          {#if userIsAdmin}
+          {#if $userIsAdmin}
             <NavLink to="/settings" onClick={toggleDrawer}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

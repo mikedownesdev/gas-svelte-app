@@ -2,7 +2,7 @@
     import AddAdminModal from "../components/AddAdminModal.svelte";
     import Panel from "../components/Panel.svelte";
     import RemoveAdminModal from "../components/RemoveAdminModal.svelte";
-    import { isLoading, appConfiguration } from "../stores";
+    import { isLoading, appConfiguration, sessionUser } from "../stores";
     import { sanitizeEmail } from "../lib/sanitizeEmail";
 </script>
 
@@ -31,6 +31,7 @@
             <button
                 slot="button"
                 onclick="add_admin_modal.showModal()"
+                disabled={!$sessionUser.roles.includes("superAdmin")}
                 class="btn">Add Admin</button
             >
             <p class="text-gray-500" slot="description">
