@@ -21,3 +21,16 @@ function loadUserProfileImageUrl_(email: string): string {
 
   return userPictureUrl ?? defaultPictureUrl;
 }
+
+
+// function loadUserProfileImageUrl_() {
+//   const ENV = {
+//     executeAs: "USER_DEPLOYING", // "USER_DEPLOYING" | "USER_ACCESSING"
+//   };
+
+//   if (ENV.executeAs === "USER_DEPLOYING") {
+//     return "https://lh3.googleusercontent.com/a-/AOh14Gj-cdUSUVoEge7rD5a063tQkyTDT3mripEuDZ0v=s100";
+//   } else if (ENV.executeAs === "USER_ACCESSING") {
+//     return DriveApp.getRootFolder().getOwner().getPhotoUrl();
+//   }
+// }
