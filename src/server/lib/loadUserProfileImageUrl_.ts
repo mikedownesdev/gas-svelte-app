@@ -5,11 +5,13 @@ import { ENV } from "../env";
  * @param {string} email
  * @returns {string} A promise resolving to the user's profile image URL or a default img URL.
  */
-function loadUserProfileImageUrl_(email: string): string {
+export function loadUserProfileImageUrl_(email: string): string {
   let userPictureUrl;
   let defaultPictureUrl =
     "https://lh3.googleusercontent.com/a-/AOh14Gj-cdUSUVoEge7rD5a063tQkyTDT3mripEuDZ0v=s100";
   try {
+    // @ts-ignore
+    // We don't have People Advanced Service types
     let people = People.People.searchDirectoryPeople({
       query: email,
       readMask: "photos",

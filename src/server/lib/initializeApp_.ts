@@ -23,8 +23,6 @@ export function initializeApp_(): Object {
   let newAppConfig: AppConfigurationType = {
     appName: "My App",
     deployingUserEmail: deployingUserEmail,
-    viewConfigurations: [],
-    dataSourceConfigurations: [],
     admins: [],
   };
 

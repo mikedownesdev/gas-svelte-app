@@ -1,11 +1,6 @@
 import { UserType, User } from "../../types/schemas";
 
-/**
- * Creates a new user object with defaults and stores it in script properties.
- * @param {string} email
- * @returns {User}
- */
-function createUser_(email: string, overrides = {}): UserType {
+export function createUser_(email: string, overrides = {}): UserType {
   const scriptPropertiesService = PropertiesService.getScriptProperties();
   const profileImgUrl = loadUserProfileImageUrl_(email);
 
