@@ -3,7 +3,7 @@ function doGet(e) {
   // identity. In this case, we return the noAuth.html page.
   let activeUserEmail = Session.getActiveUser().getEmail();
   if (activeUserEmail === "") {
-    return HtmlService.createTemplateFromFile("noAuth")
+    return HtmlService.createTemplateFromFile("server/noAuth")
       .evaluate()
       .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
   }
