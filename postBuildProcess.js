@@ -20,5 +20,4 @@ function processDir(dir) {
     }
 }
 
-processDir('./dist/server/api');
-processDir('./dist/server/lib');
+processDir('./dist/server');
