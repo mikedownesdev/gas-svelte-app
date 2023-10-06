@@ -1,4 +1,5 @@
 import { AppConfigurationType } from "../../types/schemas";
+import { loadAppConfiguration_ } from "../lib/loadAppConfiguration_";
 
 /**
  * **API Endpoint** | Returns the app configuration

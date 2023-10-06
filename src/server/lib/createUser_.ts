@@ -1,4 +1,5 @@
 import { UserType, User } from "../../types/schemas";
+import { loadUserProfileImageUrl_ } from "./loadUserProfileImageUrl_";
 
 export function createUser_(email: string, overrides = {}): UserType {
   const scriptPropertiesService = PropertiesService.getScriptProperties();

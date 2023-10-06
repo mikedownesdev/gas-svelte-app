@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "rollup:npm": "rollup -c rollup.config.npm.js",
-    "build": "vite build && npm run rollup:npm",
+    "build": "vite build && npm run rollup:npm && node postBuildProcess.js",
     "build:push": "npm run build && clasp push",
     "build:css:watch": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "preview": "vite preview",
