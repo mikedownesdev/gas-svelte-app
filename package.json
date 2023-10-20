@@ -15,7 +15,6 @@
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix",
-    "prepare": "husky install",
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "lint-staged": {
