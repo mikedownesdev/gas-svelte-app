@@ -4,14 +4,53 @@
     import RemoveAdminModal from "../components/RemoveAdminModal.svelte";
     import { isLoading, appConfiguration, sessionUser } from "../stores";
     import { sanitizeEmail } from "../lib/sanitizeEmail";
+    import { GAS_API } from "../lib/GAS_API";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+
+    async function handleClick() {
+        console.log("Button clicked!");
+        await updateAppConfiguration($appConfiguration);
+    }
+
+    async function updateAppConfiguration(appConfiguration) {
+        isLoading.set(true);
+
+        console.log("submitting app configuration update", appConfiguration);
+
+        GAS_API.putAppConfiguration({ appConfiguration })
+            .then((result) => {
+                console.log("result", result);
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: "success",
+                    message: "App configuration updated!",
+                    milliseconds: 3000,
+                });
+            })
+            .catch((err) => {
+                console.error("Error submitting user change", err);
+                dispatch("newToast", {
+                    id: Date.now(),
+                    alertType: "error",
+                    message: "Your changes could not be saved",
+                    milliseconds: 3000,
+                });
+            })
+            .finally(() => {
+                isLoading.set(false);
+            });
+    }
 </script>
 
 <div>
     {#if $appConfiguration}
         <Panel title="General">
-            <button slot="button" class="btn">Save</button>
+            <button slot="button" class="btn" on:click={handleClick}>
+                Save
+            </button>
             <p class="text-gray-500" slot="description">
-                This is my slotted description
+                Modify your app's settings. Remember to save!
             </p>
             <div slot="panel-content" class="form-control w-full max-w-xs">
                 <label class="label">
