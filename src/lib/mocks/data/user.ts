@@ -20,7 +20,7 @@ export const user: UserType = {
 export const users: UserType[] = [
   user,
   {
-    email: "johndoe",
+    email: "johndoe@test.com",
     roles: ["admin"],
     profile: {
       firstName: "John",
@@ -36,7 +36,7 @@ export const users: UserType[] = [
     ],
   },
   {
-    email: "janedoe",
+    email: "janedoe@test.com",
     roles: [],
     profile: {
       firstName: "Jane",

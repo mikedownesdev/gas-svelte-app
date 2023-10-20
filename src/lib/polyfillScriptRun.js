@@ -1,4 +1,4 @@
-import getMocks from "./mocks/_API";
+import getMockEndpoints from "./mocks/_API";
 let polyfilled = false;
 
 export default async function polyfillScriptRun() {
@@ -16,7 +16,7 @@ export default async function polyfillScriptRun() {
   _window.google = google;
 
   if (!google.script || !google.script.run) {
-    const mocks = getMocks();
+    const mocks = getMockEndpoints();
     google.script = google.script || {};
     google.script.run = {
       withSuccessHandler: (resolve) => {

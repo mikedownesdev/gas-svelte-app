@@ -19,7 +19,7 @@ type MockEndpoints = {
   getViewData: typeof getViewData;
 };
 
-export default function getMocks(): MockEndpoints {
+export default function getMockEndpoints(): MockEndpoints {
   return {
     // App Configuration
     getAppConfiguration,

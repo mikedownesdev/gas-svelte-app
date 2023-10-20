@@ -3,7 +3,6 @@
 
     export let to = "";
     export let onClick = () => {};
-
 </script>
 
 <li>
