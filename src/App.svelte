@@ -2,7 +2,7 @@
   import { Route, Router } from "svelte-routing";
   import NavLink from "./components/NavLink.svelte";
   import ProtectedRoute from "./components/ProtectedRoute.svelte";
-  import FirstLoad from "./components/FirstLoad.svelte";
+  import InitialLoad from "./components/InitialLoad.svelte";
   import View from "./routes/View.svelte";
   import Home from "./routes/Home.svelte";
   import Settings from "./routes/Settings.svelte";
@@ -11,8 +11,14 @@
   import HeaderBar from "./components/HeaderBar.svelte";
   import Toaster from "./components/Toaster.svelte";
   import { onMount } from "svelte";
-  import { sessionUser, isLoading } from "./stores";
+  import {
+    sessionUser,
+    isLoading,
+    appConfiguration,
+    userIsAdmin,
+  } from "./stores";
   import { GAS_API } from "./lib/GAS_API";
+  import { fetchAppConfiguration } from "./lib/fetchAppConfig";
 
   /**
    *
@@ -29,24 +35,14 @@
     }, event.detail.milliseconds);
   }
 
-  $: userIsAdmin = $sessionUser?.roles?.includes("admin");
-
-  $: initialLoadComplete =
-    $sessionUser !== undefined && appConfiguration !== undefined;
+  $: initialLoadComplete = $sessionUser && $appConfiguration;
 
   let isDrawerOpen = false;
   const toggleDrawer = () => {
     isDrawerOpen = !isDrawerOpen;
   };
 
-  // Used for SSR. A falsy value is ignored by the Router.
-  export let url = "";
-
-  
   let toasts = [];
-
-  /** @type {AppConfiguration | undefined} */
-  let appConfiguration = undefined;
 
   onMount(() => {
     fetchUser();
@@ -61,7 +57,6 @@
 
     console.log("fetching user...");
 
-
     GAS_API.getUser()
       .then((result) => {
         sessionUser.set(result);
@@ -75,33 +70,11 @@
         isLoading.set(false);
       });
   }
-
-  /**
-   * Fetches the app configuration from the server.
-   */
-  async function fetchAppConfiguration() {
-    isLoading.set(true);
-
-    console.log("fetching app configuration...");
-
-    GAS_API.getAppConfiguration()
-      .then((result) => {
-        appConfiguration = result;
-        console.log("App configuration:", appConfiguration);
-      })
-      .catch((err) => {
-        console.error("Could not get app configuration:", err);
-      })
-      .finally(() => {
-        console.log("App configuration loaded.");
-        isLoading.set(false);
-      });
-  }
 </script>
 
-<Router {url}>
+<Router>
   {#if !initialLoadComplete}
-    <FirstLoad />
+    <InitialLoad />
   {:else}
     <div class="drawer min-h-screen">
       <input
@@ -113,19 +86,16 @@
       />
       <div class="drawer-content bg-base-200">
         <!-- Page content here -->
-        <HeaderBar title={appConfiguration?.appName} />
+        <HeaderBar title={$appConfiguration?.appName} />
         <main class="container mx-auto pb-8">
           <Route path="/">
             <Home on:newToast={handleNewToast} />
           </Route>
           <ProtectedRoute path="settings">
-            <Settings {appConfiguration} on:newToast={handleNewToast} />
+            <Settings {$appConfiguration} on:newToast={handleNewToast} />
           </ProtectedRoute>
           <Route path="user-preferences">
-            <UserPreferences
-              user={$sessionUser}
-              on:newToast={handleNewToast}
-            />
+            <UserPreferences user={$sessionUser} on:newToast={handleNewToast} />
           </Route>
           <Route path="view/:id" let:params>
             <View id={params.id} />
@@ -157,7 +127,7 @@
             Home
           </NavLink>
 
-          {#if userIsAdmin}
+          {#if $userIsAdmin}
             <NavLink to="/settings" onClick={toggleDrawer}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -200,28 +170,6 @@
             User Preferences
           </NavLink>
           <div class="divider" />
-          {#if appConfiguration}
-            {#each appConfiguration?.viewConfigurations as view}
-              <NavLink to="/view/{view.id}" onClick={toggleDrawer}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-5 h-5"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
-                  />
-                </svg>
-
-                {view.label}</NavLink
-              >
-            {/each}
-          {/if}
         </ul>
       </div>
     </div>

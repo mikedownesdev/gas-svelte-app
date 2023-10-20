@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+  </head>
+
+  <body>
+    <p>
+      This application requires your Google account to be identifiable in order
+      to work properly. The link you're accessing now has been deployed in such
+      a way that prevents the app from accessing your account. Please contact
+      <?= Session.getEffectiveUser().getEmail() ?>
+      for assistance.
+    </p>
+  </body>
+</html>

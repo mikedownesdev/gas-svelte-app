@@ -53,7 +53,7 @@
         </div> -->
     <div class="flex flex-row">
         <div class="flex flex-col py-2 px-12">
-            <div class="avatar online mb-4">
+            <div class="avatar mb-4">
                 <div
                     class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1"
                 >
@@ -73,10 +73,6 @@
                 {#each user.roles as role}
                     <span class="badge">{role.toUpperCase()}</span>
                 {/each}
-            </div>
-            <div class="py-1">
-                <!-- <p class="text-sm">User Since: {user.activity.firstActiveAt}</p> -->
-                <!-- <p class="text-sm">Last Seen: {user.activity.firstActiveAt}</p> -->
             </div>
         </div>
         <div class="flex flex-col flex-grow items-center">

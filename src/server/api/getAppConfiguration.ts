@@ -1,13 +1,13 @@
 import { AppConfigurationType } from "../../types/schemas";
+import { loadAppConfiguration_ } from "../lib/loadAppConfiguration_";
 
 /**
  * **API Endpoint** | Returns the app configuration
  * @returns {AppConfiguration | null}
  */
-function getAppConfiguration(): AppConfigurationType {
+export function getAppConfiguration(): AppConfigurationType | null {
   console.log("getting app configuration");
 
-  /** @type {AppConfiguration} */
   const appConfigurationObject = loadAppConfiguration_();
 
   console.log(appConfigurationObject);
@@ -15,13 +15,4 @@ function getAppConfiguration(): AppConfigurationType {
   // Do we want to filter the appConfig based on user?
 
   return appConfigurationObject;
-}
-
-/** @returns {AppConfiguration | null} */
-function loadAppConfiguration_() {
-  const scriptPropertiesService = PropertiesService.getScriptProperties();
-  const scriptProperties = scriptPropertiesService.getProperties();
-  const appConfigurationString = scriptProperties.appConfiguration || null;
-
-  return JSON.parse(appConfigurationString);
 }
